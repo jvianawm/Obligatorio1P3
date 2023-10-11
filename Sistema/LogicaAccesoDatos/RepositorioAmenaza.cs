@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExepcionesPropias;
 
 namespace LogicaAccesoDatos
 {
@@ -70,10 +71,21 @@ namespace LogicaAccesoDatos
 
         public void Update(Amenaza obj)
         {
-            obj.Validar();
-            Amenaza amenaza = Contexto.Amenazas.Find(obj);
+            if (obj != null)
+            {
+                obj.Validar();
+                try
+                {
+                    Contexto.Update(obj);
+                    Contexto.SaveChanges();
+                }
+                catch (Exception ex)
 
-            if  
+                {
+                    throw new AmenazaExeption("No se pudo modificar la amenaza", ex);
+                }
+            }
         }
+
     }
 }
