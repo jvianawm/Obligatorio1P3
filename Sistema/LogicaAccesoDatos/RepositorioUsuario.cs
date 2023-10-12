@@ -1,14 +1,16 @@
 ﻿using LogicaNegocio;
-using LogicaNegocio.InterfacesdeRepositorio;
+using LogicaNegocio.InterfacesRepositorio;
+using ExcepcionesPropias;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace LogicaAccesoDatos
 {
-    internal class RepositorioUsuario : IRepositorioUsuario
+    public class RepositorioUsuario : IRepositorioUsuario
 
     {
         public PlataformaContext Context { get; set; }
@@ -18,16 +20,42 @@ namespace LogicaAccesoDatos
             Context = context;
         }
 
-
-
-        public void Add(Usuario obj)
+        public bool Login(Usuario usuario)
         {
-           if (obj != null)
-            {
-                obj.Validar();
-                obj.ValidarFecha();
+            usuario.PasswordEncriptado = Usuario.EncriptarPassword(usuario.Password);
 
-                Context.UsuarioAutorizado.Add(obj);
+            bool login = Context.Usuario.Where(
+                u => u.Alias    == usuario.Alias 
+                  && u.PasswordEncriptado == usuario.PasswordEncriptado
+            ).Any();
+
+            if(!login)
+            {
+                throw new UsuarioException("No se encontró un usuario con las credenciales proporcionadas");
+            }
+
+            return login;
+        }
+                
+        public void Add(Usuario usuario)
+        {                        
+            if (usuario != null)
+            {
+                usuario.FechaIngreso = DateTime.Now;               
+                usuario.PasswordEncriptado = Usuario.EncriptarPassword(usuario.Password);
+
+                usuario.Validar();
+                usuario.ValidarFecha();
+
+                bool yaExiste = Context.Usuario.Where(
+                                   u => u.Alias.Trim().ToLower() == usuario.Alias.Trim().ToLower()
+                               ).Any();
+
+                if( yaExiste) {
+                   throw new UsuarioException("Ya existe un usuario con ese alias");
+                }                
+
+                Context.Usuario.Add(usuario);
                 Context.SaveChanges();
             }
             else
@@ -38,17 +66,21 @@ namespace LogicaAccesoDatos
 
         public IEnumerable<Usuario> FindAll()
         {
-            return Context.UsuarioAutorizado.ToList();
+            throw new NotImplementedException();
+            //return Context.Usuario.ToList();
         }
 
         public Usuario FindById(int id)
         {
-            return Context.UsuarioAutorizado.Find(id);
+            throw new NotImplementedException();
+            //return Context.Usuario.Find(id);
         }
 
         public void Remove(Usuario obj)
         {
-            if(obj != null)
+            throw new NotImplementedException();
+            /*
+            if (obj != null)
             {
                 Context.Remove(obj);
                 Context.SaveChanges();
@@ -57,11 +89,13 @@ namespace LogicaAccesoDatos
             {
                 throw new InvalidOperationException("No se proporciono un usuario");
             }
+            */
         }
 
         public void Update(Usuario obj)
         {
             throw new NotImplementedException();
         }
+        
     }
 }

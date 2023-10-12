@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogicaNegocio.InterfacesdeRepositorio
+namespace LogicaNegocio.InterfacesRepositorio
 {
-    public interface IRepositorioUsuario :IRepositorio<Usuario>
+    public interface IRepositorioUsuario : IRepositorio<Usuario>
     {
-
+        public bool Login(Usuario usuario);
     }
 }

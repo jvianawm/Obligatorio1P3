@@ -1,4 +1,4 @@
-﻿using ExepcionesPropias;
+﻿using ExcepcionesPropias;
 using LogicaNegocio.Interfaces;
 using System;
 using System.Collections.Generic;

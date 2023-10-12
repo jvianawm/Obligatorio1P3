@@ -6,9 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogicaNegocio.InterfacesdeRepositorio
+namespace LogicaNegocio.InterfacesRepositorio
 {
-    public interface IRepositorioPais:IRepositorio<Pais>
+    public interface IRepositorioEcosistema : IRepositorio<Ecosistema>
     {
+
     }
 }

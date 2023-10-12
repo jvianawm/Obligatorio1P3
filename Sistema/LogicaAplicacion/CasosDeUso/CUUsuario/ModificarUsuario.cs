@@ -1,6 +1,6 @@
 ﻿using LogicaAplicacion.InterfacesCU;
 using LogicaNegocio;
-using LogicaNegocio.InterfacesdeRepositorio;
+using LogicaNegocio.InterfacesRepositorio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +18,12 @@ namespace LogicaAplicacion.CasosDeUso
             Repo = repo;
         }
 
+
         public void Modificar(Usuario usuario)
         {
-            Repo.Update(usuario);
+            throw new NotImplementedException();
+            //Repo.Update(usuario);
         }
+
     }
 }

@@ -1,4 +1,4 @@
-﻿using ExepcionesPropias;
+﻿using ExcepcionesPropias;
 using LogicaNegocio.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,29 +9,36 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Cryptography;
 
 namespace LogicaNegocio
 {
    public class Usuario : IValidable
-    {
-       
-
- 
+    {       
         public int Id { get; set; }
 
         [MinLength(6, ErrorMessage = "El alias debe contener minimo 6 caracteres")]
-
+        [Required(ErrorMessage ="El alias es un dato requerido")]
         public string Alias { get; set; }
 
         [MinLength(8, ErrorMessage = "La contraseña debe tener minimo 8  caracteres")]
+        [Required(ErrorMessage = "La contraseña es un dato requerido")]
         public string Password { get; set; }
 
-        public DateTime FechaIngreso { get; set; }
+        [MaxLength(32)]
+        public string PasswordEncriptado { get; set; }
 
+        public DateTime FechaIngreso { get; set; }
 
         public Usuario()
         {
                
+        }
+
+        public static string EncriptarPassword(string password)
+        {
+            byte[] hashValue = MD5.HashData(Encoding.UTF8.GetBytes(password));
+            return Convert.ToHexString(hashValue);
         }
 
         public void Validar()
@@ -40,8 +47,6 @@ namespace LogicaNegocio
             ValidarFecha();
 
         }
-
-    
 
         public  void ValidarDatosVacios( string alias, string password)
         {

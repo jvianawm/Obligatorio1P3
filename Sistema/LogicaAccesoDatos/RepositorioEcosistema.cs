@@ -1,5 +1,6 @@
-﻿using LogicaNegocio;
-using LogicaNegocio.InterfacesdeRepositorio;
+﻿using ExcepcionesPropias;
+using LogicaNegocio;
+using LogicaNegocio.InterfacesRepositorio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +9,56 @@ using System.Threading.Tasks;
 
 namespace LogicaAccesoDatos
 {
-    internal class RepositorioEcosistema : IRepositorioEcosistema
-
+    public class RepositorioEcosistema : IRepositorioEcosistema
     {
-        public void Add(Ecosistema obj)
+
+        public PlataformaContext Context { get; set; }
+
+        public RepositorioEcosistema(PlataformaContext context)
         {
-            throw new NotImplementedException();
+            Context = context;
         }
 
+
+        public void Add(Ecosistema ecosistema)
+        {
+            if (ecosistema != null)
+            {
+                ecosistema.Validar();
+
+                bool yaExiste = Context.Ecosistemas.Where(
+                                   e => e.Nombre.Trim().ToLower() == ecosistema.Nombre.Trim().ToLower()
+                                ).Any();
+
+                if (yaExiste)
+                {
+                    throw new UsuarioException("Ya existe un ecosistema con ese nombre");
+                }
+
+                Context.Ecosistemas.Add(ecosistema);
+                Context.SaveChanges();
+            }
+            else
+            {
+                throw new InvalidOperationException("No se proporciono un ecosistema");
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         public IEnumerable<Ecosistema> FindAll()
         {
             throw new NotImplementedException();

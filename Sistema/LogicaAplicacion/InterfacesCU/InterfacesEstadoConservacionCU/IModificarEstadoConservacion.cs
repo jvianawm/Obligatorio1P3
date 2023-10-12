@@ -9,6 +9,6 @@ namespace LogicaAplicacion.InterfacesCU
 {
     public interface IModificarEstadoConservacion
     {
-        void Modificar(EstadoConservacion estadoConservacion)
+        void Modificar(EstadoConservacion estadoConservacion);
     }
 }

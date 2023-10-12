@@ -1,4 +1,4 @@
-﻿using ExepcionesPropias;
+﻿using ExcepcionesPropias;
 using LogicaNegocio.Dominio;
 using LogicaNegocio.Interfaces;
 using System.ComponentModel.DataAnnotations;
@@ -8,24 +8,22 @@ namespace LogicaNegocio
 {
     public class Ecosistema : IValidable
     {
-
-
         public int Id { get; set; }
 
-        [MaxLength(50, ErrorMessage = "El nombre debe tener como maximo 50 caracteres"), MinLength(2, ErrorMessage = "El nombre debe tener como minimo 2 caracteres")]
+        [MaxLength(50, ErrorMessage = "El nombre debe tener como maximo 50 caracteres")]
+        [MinLength( 2, ErrorMessage = "El nombre debe tener como minimo 2 caracteres")]
         public string Nombre { get; set; }
 
         [MinLength( 0, ErrorMessage ="El area no puede ser menor a 0")]
         public int Area { get; set; }
 
-        [MaxLength(500, ErrorMessage = "La descripcion debe tener como maximo 500 caracteres"), MinLength(50, ErrorMessage = "La descripcion debe tener como minimo 50 caracteres") ]
+        [MaxLength(500, ErrorMessage = "La descripcion debe tener como maximo 500 caracteres")]
+        [MinLength( 50, ErrorMessage = "La descripcion debe tener como minimo 50 caracteres")]
         public string DescripcionCaracteristicas { get; set; }
 
         public List<EspecieMarina> EspecieMarinas { get; set; }
 
-        public List<Amenaza> Amenazas { get; set; }
-
-       
+        public List<Amenaza> Amenazas { get; set; }       
 
         public List<Pais> Pais { get; set; }
 
@@ -35,37 +33,28 @@ namespace LogicaNegocio
 
         public decimal Latitud { get; set; }
 
+        // Constructor
+        public Ecosistema() { }
 
-
-        public Ecosistema()
+        public Ecosistema(
+            string nombre,
+            string descripcionCaracteristicas,
+            List<EspecieMarina> especies,
+            List<Amenaza> amenazas, 
+            List<Pais> paises,
+            EstadoConservacion estado,
+            decimal longitud,
+            decimal latitud)
         {
-
+            Nombre = nombre;
+            DescripcionCaracteristicas = descripcionCaracteristicas;
+            EspecieMarinas = especies;
+            Amenazas = amenazas;
+            Pais = paises;
+            Estado = estado;
+            Longitud = longitud;
+            Latitud = latitud;
         }
-
-        public Ecosistema(string nombre,
-                          string descripcionCaracteristicas,
-                          List<EspecieMarina> especies,
-                          List<Amenaza> amenazas, 
-                          List<Pais> paises,
-                          EstadoConservacion estado,
-                          decimal longitud,
-                          decimal latitud)
-        {
-                            Nombre = nombre;
-                            DescripcionCaracteristicas = descripcionCaracteristicas;
-                            EspecieMarinas = especies;
-                            Amenazas = amenazas;
-                            Pais = paises;
-                            Estado = estado;
-                            Longitud = longitud;
-                            Latitud = latitud;
-
-
-        }
-
-
-
-
 
         public void Validar()
         {
@@ -79,7 +68,6 @@ namespace LogicaNegocio
             if (Id == default
             || string.IsNullOrEmpty(DescripcionCaracteristicas)
             || string.IsNullOrEmpty(Nombre)
-
             )
             {
                 throw new EcosistemaException("No pueden haber datos vacios");

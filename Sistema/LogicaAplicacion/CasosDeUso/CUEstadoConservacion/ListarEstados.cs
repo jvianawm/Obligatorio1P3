@@ -1,6 +1,6 @@
 ﻿using LogicaAplicacion.InterfacesCU;
 using LogicaNegocio;
-using LogicaNegocio.InterfacesdeRepositorio;
+using LogicaNegocio.InterfacesRepositorio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +22,5 @@ namespace LogicaAplicacion.CasosDeUso
         {
             return Repo.FindAll();  
         }
-    }
-
- 
-    }
+    }    
 }

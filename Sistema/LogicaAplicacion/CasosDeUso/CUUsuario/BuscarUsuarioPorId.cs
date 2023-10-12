@@ -1,7 +1,7 @@
 ﻿using LogicaAplicacion.InterfacesCU;
 using LogicaNegocio;
 using LogicaNegocio.Interfaces_de_Repositorio;
-using LogicaNegocio.InterfacesdeRepositorio;
+using LogicaNegocio.InterfacesRepositorio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +20,8 @@ namespace LogicaAplicacion.CasosDeUso
 
         public Usuario Buscar(int id)
         {
-            return Repo.FindById(id);
+            throw new NotImplementedException();
+            //return Repo.FindById(id);
         }
     }
 }

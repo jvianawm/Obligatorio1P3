@@ -1,6 +1,6 @@
 ﻿using LogicaAplicacion.InterfacesCU;
 using LogicaNegocio;
-using LogicaNegocio.InterfacesdeRepositorio;
+using LogicaNegocio.InterfacesRepositorio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +12,16 @@ namespace LogicaAplicacion.CasosDeUso
 
     public class AltaUsuario : IAltaUsuario
     {
-    public IRepositorioUsuario Repo { get; set; }
+        public IRepositorioUsuario Repo { get; set; }
 
-    public AltaUsuario (IRepositorioUsuario repo)
-    {
-        Repo = repo;
-    }
+        public AltaUsuario (IRepositorioUsuario repo)
+        {
+            Repo = repo;
+        }
 
-    public void Alta(Usuario usuario)
-    {
-        Repo.Add(usuario);
+        public void Alta(Usuario usuario)
+        {
+            //Repo.Add(usuario);
+        }
     }
-}
 }

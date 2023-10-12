@@ -6,10 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogicaNegocio.InterfacesdeRepositorio
+namespace LogicaNegocio.InterfacesRepositorio
 {
-    public interface IRepositorioAmenaza: IRepositorio<Amenaza>
+    public interface IRepositorioEstadoConservacion:IRepositorio<EstadoConservacion>
     {
-
     }
 }

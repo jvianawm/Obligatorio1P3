@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ExepcionesPropias;
+using ExcepcionesPropias;
 
 namespace LogicaNegocio.Dominio
 {

@@ -27,13 +27,56 @@
                         </li>
                     </ul>
                 </div>
+
+                @* Si hay un usuario logueado *@
+                @if (@Context.Session.GetString("ALIAS") != null)
+                {
+                    <div class="text-end">
+
+                        @Context.Session.GetString("ALIAS")
+
+                    </div>
+
+                    <div class="text-end">
+
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Logout">Logout</a>
+
+                    </div>
+                }
+                @* Si NO hay un usuario logueado *@
+                else                
+                {
+                    <div class="text-end">
+
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Login">Login</a>
+
+                    </div>
+                }
+
+
             </div>
         </nav>
     </header>
+
     <div class="container">
+
         <main role="main" class="pb-3">
+
+            <div class="alert-danger text-center">
+                @ViewBag.MensajeError
+                @TempData["MensajeError"]
+
+            </div>
+
+            <div class="alert-success text-center" ">
+                @ViewBag.MensajeExito
+                @TempData["MensajeExito"]
+            </div>
+
             @RenderBody()
+
         </main>
+
     </div>
 
     <footer class="border-top footer text-muted">
