@@ -11,14 +11,10 @@ namespace LogicaNegocio
 {
     public class EspecieMarina : IValidable
     {
-        
-
-
         public int Id { get; set; }
 
         [MaxLength(50, ErrorMessage = "El nombre debe tener como maximo 50 caracteres"), MinLength(2, ErrorMessage = "El nombre debe tener como minimo 2 caracteres")]
         public string NombreCientifico { get; set; }
-
 
         [MaxLength(50, ErrorMessage = "El nombre debe tener como maximo 50 caracteres"), MinLength(2, ErrorMessage = "El nombre debe tener como minimo 2 caracteres")]
         public string NombreVulgar { get; set; }
@@ -30,11 +26,9 @@ namespace LogicaNegocio
 
         public string RangoLongitud  { get; set; }
 
-        public List<Amenaza> amenazas { get; set; }
+        public List<Amenaza> Amenazas { get; set; }
 
         public EstadoConservacion Estado{ get; set; }
-
-
 
         public EspecieMarina(     )
         {
@@ -49,7 +43,6 @@ namespace LogicaNegocio
 
         public void ValidarDatosVacios()
         {
-
             if (Id == default
             || string.IsNullOrEmpty(NombreCientifico)
             || string.IsNullOrEmpty(Descripcion)

@@ -32,7 +32,7 @@ namespace LogicaNegocio
 
         public Usuario()
         {
-               
+
         }
 
         public static string EncriptarPassword(string password)
@@ -45,7 +45,6 @@ namespace LogicaNegocio
         {
             ValidarDatosVacios(Alias, Password);
             ValidarFecha();
-
         }
 
         public  void ValidarDatosVacios( string alias, string password)

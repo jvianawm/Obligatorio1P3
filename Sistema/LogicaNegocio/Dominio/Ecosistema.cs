@@ -21,13 +21,13 @@ namespace LogicaNegocio
         [MinLength( 50, ErrorMessage = "La descripcion debe tener como minimo 50 caracteres")]
         public string DescripcionCaracteristicas { get; set; }
 
-        public List<EspecieMarina> EspecieMarinas { get; set; }
+        public IEnumerable<EspecieMarina> EspecieMarinas { get; set; }
 
-        public List<Amenaza> Amenazas { get; set; }       
+        public IEnumerable<Amenaza> Amenazas { get; set; }       
 
-        public List<Pais> Pais { get; set; }
+        public IEnumerable<Pais> Paises { get; set; }
 
-        public EstadoConservacion Estado{ get; set; }
+        public EstadoConservacion Estado { get; set; }
 
         public decimal Longitud { get; set; }
 
@@ -39,9 +39,9 @@ namespace LogicaNegocio
         public Ecosistema(
             string nombre,
             string descripcionCaracteristicas,
-            List<EspecieMarina> especies,
-            List<Amenaza> amenazas, 
-            List<Pais> paises,
+            IEnumerable<EspecieMarina> especies,
+            IEnumerable<Amenaza> amenazas,
+            IEnumerable<Pais> paises,
             EstadoConservacion estado,
             decimal longitud,
             decimal latitud)
@@ -50,7 +50,7 @@ namespace LogicaNegocio
             DescripcionCaracteristicas = descripcionCaracteristicas;
             EspecieMarinas = especies;
             Amenazas = amenazas;
-            Pais = paises;
+            Paises = paises;
             Estado = estado;
             Longitud = longitud;
             Latitud = latitud;

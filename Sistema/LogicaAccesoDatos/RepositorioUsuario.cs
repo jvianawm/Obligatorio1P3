@@ -11,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 namespace LogicaAccesoDatos
 {
     public class RepositorioUsuario : IRepositorioUsuario
-
     {
         public PlataformaContext Context { get; set; }
 

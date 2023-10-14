@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.CasosDeUso
 {
-    public class ListarAmenaza: IListarAmenaza
+    public class CUListarAmenazas: IListarAmenazas
     {
         public IRepositorioAmenaza repositorioAmenaza { get; set; }
 
-        public ListarAmenaza(IRepositorioAmenaza repositorioAmenaza)
+        public CUListarAmenazas(IRepositorioAmenaza repositorioAmenaza)
         {
             this.repositorioAmenaza = repositorioAmenaza;
         }

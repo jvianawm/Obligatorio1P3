@@ -19,7 +19,6 @@ namespace LogicaAccesoDatos
             Context = context;
         }
 
-
         public void Add(Ecosistema ecosistema)
         {
             if (ecosistema != null)

@@ -1,0 +1,73 @@
+﻿@model PresetacionMVC.Models.RegistroEcosistemaViewModel
+
+@{
+    ViewData["Title"] = "Registro";
+}
+
+<h1>Registro</h1>
+
+<h4>Ecosistema</h4>
+<hr />
+<div class="row">
+
+    <div class="col-md-4">
+
+        <form asp-action="Registro">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Ecosistema.Nombre" class="control-label"></label>
+                <input asp-for="Ecosistema.Nombre" class="form-control" />
+                <span asp-validation-for="Ecosistema.Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ecosistema.Area" class="control-label"></label>
+                <input asp-for="Ecosistema.Area" class="form-control" />
+                <span asp-validation-for="Ecosistema.Area" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ecosistema.DescripcionCaracteristicas" class="control-label"></label>
+                <input asp-for="Ecosistema.DescripcionCaracteristicas" class="form-control" />
+                <span asp-validation-for="Ecosistema.DescripcionCaracteristicas" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ecosistema.Longitud" class="control-label"></label>
+                <input asp-for="Ecosistema.Longitud" class="form-control" />
+                <span asp-validation-for="Ecosistema.Longitud" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ecosistema.Latitud" class="control-label"></label>
+                <input asp-for="Ecosistema.Latitud" class="form-control" />
+                <span asp-validation-for="Ecosistema.Latitud" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Paises</label>
+                <select name="IdPaisSeleccionado">
+                    @foreach (LogicaNegocio.Dominio.Pais pais in Model.Paises)
+                    {
+                        if (pais.Id == Model.IdPaisSeleccionado)
+                        {
+                            <option selected value="@pais.Id">@pais.Nombre</option>
+                        }
+                        else
+                        {
+                            <option value="@pais.Id">@pais.Nombre</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.CasosDeUso
 {
-    public class ListarPaises : IListarPais
+    public class CUListarPaises : IListarPaises
     {
 
         public IRepositorioPais Repo { get; set; }
-        public ListarPaises(IRepositorioPais repo)
+        public CUListarPaises(IRepositorioPais repo)
         {
             Repo = repo;
         }

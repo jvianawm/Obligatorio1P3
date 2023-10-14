@@ -9,6 +9,15 @@ namespace PresetacionMVC.Models
     {
         public Ecosistema Ecosistema { get; set; }
 
+        public IEnumerable<Pais> Paises { get; set; }
+        public int[] IdsPaisesSeleccionados { get; set; }
+
+        public IEnumerable<Pais> Amenazas { get; set; }
+        public int[] IdsAmenazasSeleccionadas { get; set; }
+
+        public IEnumerable<EspecieMarina> Especies { get; set; }
+        public int[] IdsEspeciesSeleccionadas { get; set; }
+
 
 
         /*

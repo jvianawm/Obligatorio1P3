@@ -1,14 +1,9 @@
 using LogicaAccesoDatos;
-
 using LogicaAplicacion.CasosDeUso;
 using LogicaAplicacion.InterfacesCU;
-
 using LogicaNegocio.InterfacesRepositorio;
 using LogicaNegocio.Dominio;
-
-
 using Microsoft.EntityFrameworkCore;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -63,6 +58,7 @@ builder.Services.AddScoped<IModificarUsuario, ModificarUsuario>();
 // REPOSITORIOS
 builder.Services.AddScoped<IRepositorioUsuario, RepositorioUsuario>();
 builder.Services.AddScoped<IRepositorioEcosistema, RepositorioEcosistema>();
+builder.Services.AddScoped<IRepositorioPais, RepositorioPais>();
 
 // CASOS DE USO
 // Usuario
@@ -70,9 +66,10 @@ builder.Services.AddScoped<ILoginUsuario, CULoginUsuario>();
 builder.Services.AddScoped<IRegistroUsuario, CURegistroUsuario>();
 // Ecosistema
 builder.Services.AddScoped<IRegistroEcosistema, CURegistroEcosistema>();
-
-
-
+// Pais
+builder.Services.AddScoped<IListarPaises, CUListarPaises>();
+// Amenazas
+builder.Services.AddScoped<IListarAmenazas, CUListarAmenazas>();
 
 ConfigurationBuilder confBuilder = new ConfigurationBuilder();
 confBuilder.AddJsonFile("appsettings.json", false, true);

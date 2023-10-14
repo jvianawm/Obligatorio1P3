@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LogicaAccesoDatos
 {
-    internal class RepositorioPais : IRepositorioPais
+    public class RepositorioPais : IRepositorioPais
     {
         public void Add(Pais obj)
         {

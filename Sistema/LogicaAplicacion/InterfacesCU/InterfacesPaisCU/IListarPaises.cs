@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.InterfacesCU
 {
-    public interface IListarPais
+    public interface IListarPaises
     {
         IEnumerable<Pais> Listar();
     }
