@@ -22,6 +22,81 @@ namespace LogicaAccesoDatos.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("AmenazaEcosistema", b =>
+                {
+                    b.Property<int>("AmenazasId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EcosistemasId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AmenazasId", "EcosistemasId");
+
+                    b.HasIndex("EcosistemasId");
+
+                    b.ToTable("AmenazaEcosistema");
+                });
+
+            modelBuilder.Entity("AmenazaEspecie", b =>
+                {
+                    b.Property<int>("AmenazasId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EspeciesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AmenazasId", "EspeciesId");
+
+                    b.HasIndex("EspeciesId");
+
+                    b.ToTable("AmenazaEspecie");
+                });
+
+            modelBuilder.Entity("EcosistemaPais", b =>
+                {
+                    b.Property<int>("EcosistemasId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PaisesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EcosistemasId", "PaisesId");
+
+                    b.HasIndex("PaisesId");
+
+                    b.ToTable("EcosistemaPais");
+                });
+
+            modelBuilder.Entity("EcosistemasEspecies", b =>
+                {
+                    b.Property<int>("EcosistemasId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EspeciesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EcosistemasId", "EspeciesId");
+
+                    b.HasIndex("EspeciesId");
+
+                    b.ToTable("EcosistemasEspecies", (string)null);
+                });
+
+            modelBuilder.Entity("EcosistemasEspeciesPosibles", b =>
+                {
+                    b.Property<int>("EcosistemasPosiblesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EspeciesPosiblesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EcosistemasPosiblesId", "EspeciesPosiblesId");
+
+                    b.HasIndex("EspeciesPosiblesId");
+
+                    b.ToTable("EcosistemasEspeciesPosibles", (string)null);
+                });
+
             modelBuilder.Entity("LogicaNegocio.Dominio.Amenaza", b =>
                 {
                     b.Property<int>("Id")
@@ -34,31 +109,25 @@ namespace LogicaAccesoDatos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("EcosistemaId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("EspecieMarinaId")
-                        .HasColumnType("int");
-
                     b.Property<int>("GradoPeligrosidad")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EcosistemaId");
-
-                    b.HasIndex("EspecieMarinaId");
-
                     b.ToTable("Amenazas");
                 });
 
-            modelBuilder.Entity("LogicaNegocio.Ecosistema", b =>
+            modelBuilder.Entity("LogicaNegocio.Dominio.Ecosistema", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ArchivoImagen")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Area")
                         .HasColumnType("int");
@@ -68,7 +137,7 @@ namespace LogicaAccesoDatos.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int>("EstadoId")
+                    b.Property<int>("EstadoConservacionId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Latitud")
@@ -84,12 +153,12 @@ namespace LogicaAccesoDatos.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EstadoId");
+                    b.HasIndex("EstadoConservacionId");
 
                     b.ToTable("Ecosistemas");
                 });
 
-            modelBuilder.Entity("LogicaNegocio.EspecieMarina", b =>
+            modelBuilder.Entity("LogicaNegocio.Dominio.Especie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -97,15 +166,16 @@ namespace LogicaAccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ArchivoImagen")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Descripcion")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int?>("EcosistemaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EstadoId")
+                    b.Property<int>("EstadoConservacionId")
                         .HasColumnType("int");
 
                     b.Property<string>("NombreCientifico")
@@ -128,14 +198,12 @@ namespace LogicaAccesoDatos.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EcosistemaId");
+                    b.HasIndex("EstadoConservacionId");
 
-                    b.HasIndex("EstadoId");
-
-                    b.ToTable("EspecieMarinas");
+                    b.ToTable("Especies");
                 });
 
-            modelBuilder.Entity("LogicaNegocio.EstadoConservacion", b =>
+            modelBuilder.Entity("LogicaNegocio.Dominio.EstadoConservacion", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -143,7 +211,11 @@ namespace LogicaAccesoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("EstadoCons")
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Estado")
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
@@ -156,7 +228,7 @@ namespace LogicaAccesoDatos.Migrations
                     b.ToTable("EstadoConservacion");
                 });
 
-            modelBuilder.Entity("LogicaNegocio.Pais", b =>
+            modelBuilder.Entity("LogicaNegocio.Dominio.Pais", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -168,9 +240,6 @@ namespace LogicaAccesoDatos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("EcosistemaId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -178,12 +247,10 @@ namespace LogicaAccesoDatos.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EcosistemaId");
-
                     b.ToTable("Pais");
                 });
 
-            modelBuilder.Entity("LogicaNegocio.Usuario", b =>
+            modelBuilder.Entity("LogicaNegocio.Dominio.Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -215,62 +282,101 @@ namespace LogicaAccesoDatos.Migrations
                     b.ToTable("Usuario");
                 });
 
-            modelBuilder.Entity("LogicaNegocio.Dominio.Amenaza", b =>
+            modelBuilder.Entity("AmenazaEcosistema", b =>
                 {
-                    b.HasOne("LogicaNegocio.Ecosistema", null)
-                        .WithMany("Amenazas")
-                        .HasForeignKey("EcosistemaId");
-
-                    b.HasOne("LogicaNegocio.EspecieMarina", null)
-                        .WithMany("amenazas")
-                        .HasForeignKey("EspecieMarinaId");
-                });
-
-            modelBuilder.Entity("LogicaNegocio.Ecosistema", b =>
-                {
-                    b.HasOne("LogicaNegocio.EstadoConservacion", "Estado")
+                    b.HasOne("LogicaNegocio.Dominio.Amenaza", null)
                         .WithMany()
-                        .HasForeignKey("EstadoId")
+                        .HasForeignKey("AmenazasId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Estado");
+                    b.HasOne("LogicaNegocio.Dominio.Ecosistema", null)
+                        .WithMany()
+                        .HasForeignKey("EcosistemasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("LogicaNegocio.EspecieMarina", b =>
+            modelBuilder.Entity("AmenazaEspecie", b =>
                 {
-                    b.HasOne("LogicaNegocio.Ecosistema", null)
-                        .WithMany("EspecieMarinas")
-                        .HasForeignKey("EcosistemaId");
-
-                    b.HasOne("LogicaNegocio.EstadoConservacion", "Estado")
+                    b.HasOne("LogicaNegocio.Dominio.Amenaza", null)
                         .WithMany()
-                        .HasForeignKey("EstadoId")
+                        .HasForeignKey("AmenazasId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Estado");
+                    b.HasOne("LogicaNegocio.Dominio.Especie", null)
+                        .WithMany()
+                        .HasForeignKey("EspeciesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("LogicaNegocio.Pais", b =>
+            modelBuilder.Entity("EcosistemaPais", b =>
                 {
-                    b.HasOne("LogicaNegocio.Ecosistema", null)
-                        .WithMany("Pais")
-                        .HasForeignKey("EcosistemaId");
+                    b.HasOne("LogicaNegocio.Dominio.Ecosistema", null)
+                        .WithMany()
+                        .HasForeignKey("EcosistemasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LogicaNegocio.Dominio.Pais", null)
+                        .WithMany()
+                        .HasForeignKey("PaisesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("LogicaNegocio.Ecosistema", b =>
+            modelBuilder.Entity("EcosistemasEspecies", b =>
                 {
-                    b.Navigation("Amenazas");
+                    b.HasOne("LogicaNegocio.Dominio.Ecosistema", null)
+                        .WithMany()
+                        .HasForeignKey("EcosistemasId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                    b.Navigation("EspecieMarinas");
-
-                    b.Navigation("Pais");
+                    b.HasOne("LogicaNegocio.Dominio.Especie", null)
+                        .WithMany()
+                        .HasForeignKey("EspeciesId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("LogicaNegocio.EspecieMarina", b =>
+            modelBuilder.Entity("EcosistemasEspeciesPosibles", b =>
                 {
-                    b.Navigation("amenazas");
+                    b.HasOne("LogicaNegocio.Dominio.Ecosistema", null)
+                        .WithMany()
+                        .HasForeignKey("EcosistemasPosiblesId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("LogicaNegocio.Dominio.Especie", null)
+                        .WithMany()
+                        .HasForeignKey("EspeciesPosiblesId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LogicaNegocio.Dominio.Ecosistema", b =>
+                {
+                    b.HasOne("LogicaNegocio.Dominio.EstadoConservacion", "EstadoConservacion")
+                        .WithMany()
+                        .HasForeignKey("EstadoConservacionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EstadoConservacion");
+                });
+
+            modelBuilder.Entity("LogicaNegocio.Dominio.Especie", b =>
+                {
+                    b.HasOne("LogicaNegocio.Dominio.EstadoConservacion", "EstadoConservacion")
+                        .WithMany()
+                        .HasForeignKey("EstadoConservacionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EstadoConservacion");
                 });
 #pragma warning restore 612, 618
         }

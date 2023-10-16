@@ -1,4 +1,4 @@
-﻿using LogicaNegocio;
+﻿using LogicaNegocio.Dominio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +10,7 @@ namespace LogicaAplicacion.InterfacesCU
     public interface IListarEcosistemas
     {
         IEnumerable<Ecosistema> Listar();
+
+        public IEnumerable<Ecosistema> FindByIds(List<int> ids);
     }
 }

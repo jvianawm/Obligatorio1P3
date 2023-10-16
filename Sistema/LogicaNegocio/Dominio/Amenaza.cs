@@ -11,10 +11,7 @@ using ExcepcionesPropias;
 namespace LogicaNegocio.Dominio
 {
     public class Amenaza : IValidable
-    {
-       
-
-
+    {      
         //PROPIEDADES
 
         public int Id { get; set; }
@@ -24,6 +21,9 @@ namespace LogicaNegocio.Dominio
         public GradoPeligrosidad GradoPeligrosidad { get; set; }
 
 
+        public ICollection<Especie> Especies { get; set; }
+
+        public ICollection<Ecosistema> Ecosistemas { get; set; }
 
         public Amenaza()
         {

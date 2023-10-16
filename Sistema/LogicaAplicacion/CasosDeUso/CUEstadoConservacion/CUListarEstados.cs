@@ -1,5 +1,5 @@
 ﻿using LogicaAplicacion.InterfacesCU;
-using LogicaNegocio;
+using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorio;
 using System;
 using System.Collections.Generic;
@@ -9,18 +9,23 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.CasosDeUso
 {
-    public class ListarEstados : IListarEstadoConservacion
+    public class CUListarEstados : IListarEstadoConservacion
     {
         public IRepositorioEstadoConservacion Repo { get; set; }
 
-        public ListarEstados(IRepositorioEstadoConservacion repo)
+        public CUListarEstados(IRepositorioEstadoConservacion repo)
         {
             Repo = repo;
         }
 
         public IEnumerable<EstadoConservacion> Listar()
         {
-            return Repo.FindAll();  
+            return Repo.FindAll();
+        }
+
+        public EstadoConservacion ObtenerPorId(int id)
+        {
+            return Repo.FindById(id);
         }
     }    
 }

@@ -21,7 +21,7 @@ namespace PresentacionMVC.Filters
         {
             if (!Autenticacion.EsUsuarioAutenticado(context.HttpContext))
             {
-                context.Result = new RedirectResult("/Home/Login");
+                context.Result = new RedirectResult("/Usuario/Login");
             }
                 
         }

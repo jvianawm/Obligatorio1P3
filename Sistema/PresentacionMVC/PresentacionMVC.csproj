@@ -20,4 +20,9 @@
     <ProjectReference Include="..\LogicaNegocio\LogicaNegocio.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\ecosistemas\" />
+    <Folder Include="wwwroot\img\especies\" />
+  </ItemGroup>
+
 </Project>

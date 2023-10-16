@@ -1,5 +1,5 @@
 ﻿using LogicaAplicacion.InterfacesCU;
-using LogicaNegocio;
+using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorio;
 using System;
 using System.Collections.Generic;
@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.CasosDeUso
 {
-    public class ListarEcosistema : IListarEcosistemas
+    public class CUListarEcosistemas : IListarEcosistemas
     {
 
         public IRepositorioEcosistema Repo { get; set; }
 
-        public ListarEcosistema (IRepositorioEcosistema repo)
+        public CUListarEcosistemas (IRepositorioEcosistema repo)
         {
             Repo = repo;
         }
@@ -22,6 +22,11 @@ namespace LogicaAplicacion.CasosDeUso
         public IEnumerable<Ecosistema> Listar()
         {
            return Repo.FindAll();
+        }
+
+        public IEnumerable<Ecosistema> FindByIds(List<int> ids)
+        {
+            return Repo.FindByIds(ids);
         }
     }
 }

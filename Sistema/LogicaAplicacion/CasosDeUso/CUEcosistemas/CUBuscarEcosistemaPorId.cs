@@ -1,5 +1,5 @@
 ﻿using LogicaAplicacion.InterfacesCU;
-using LogicaNegocio;
+using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorio;
 using System;
 using System.Collections.Generic;
@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.CasosDeUso
 {
-    public class BuscarEcosistemaPorId: IBuscarEcosistemaPorId
+    public class CUBuscarEcosistemaPorId: IBuscarEcosistemaPorId
     {
         public IRepositorioEcosistema Repo { get; set; }    
 
-        public BuscarEcosistemaPorId(IRepositorioEcosistema repo)
+        public CUBuscarEcosistemaPorId(IRepositorioEcosistema repo)
         {
             Repo = repo;
         }

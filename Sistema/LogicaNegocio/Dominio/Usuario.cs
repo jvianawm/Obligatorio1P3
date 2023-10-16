@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography;
 
-namespace LogicaNegocio
+namespace LogicaNegocio.Dominio
 {
    public class Usuario : IValidable
     {       

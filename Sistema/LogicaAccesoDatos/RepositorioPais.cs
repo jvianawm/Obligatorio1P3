@@ -1,4 +1,4 @@
-﻿using LogicaNegocio;
+﻿using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorio;
 using System;
 using System.Collections.Generic;
@@ -10,6 +10,13 @@ namespace LogicaAccesoDatos
 {
     public class RepositorioPais : IRepositorioPais
     {
+        public PlataformaContext Context { get; set; }
+
+        public RepositorioPais(PlataformaContext context)
+        {
+            Context = context;
+        }
+
         public void Add(Pais obj)
         {
             throw new NotImplementedException();
@@ -17,12 +24,17 @@ namespace LogicaAccesoDatos
 
         public IEnumerable<Pais> FindAll()
         {
-            throw new NotImplementedException();
+            return Context.Pais;
         }
 
         public Pais FindById(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<Pais> FindByIds(List<int> ids)
+        {
+            return Context.Pais.Where(p => ids.Contains(p.Id));
         }
 
         public void Remove(Pais obj)

@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace LogicaNegocio.InterfacesRepositorio
 {
-    public interface IRepositorioPais:IRepositorio<Pais>
+    public interface IRepositorioPais : IRepositorio<Pais>
     {
+        public IEnumerable<Pais> FindByIds(List<int> ids);
     }
 }

@@ -9,7 +9,7 @@ using ExcepcionesPropias;
 
 namespace LogicaAccesoDatos
 {
-    internal class RepositorioAmenaza : IRepositorioAmenaza
+    public class RepositorioAmenaza : IRepositorioAmenaza
     {
         public PlataformaContext Contexto { get; set; }
 
@@ -40,14 +40,14 @@ namespace LogicaAccesoDatos
             return Contexto.Amenazas.ToList();
         }
 
-
         public Amenaza FindById(int id)
-        {
-          
+        {         
+              return  Contexto.Amenazas.Find(id);                    
+        }
 
-              return  Contexto.Amenazas.Find(id);
-          
-           
+        public IEnumerable<Amenaza> FindByIds(List<int> ids)
+        {
+            return Contexto.Amenazas.Where(p => ids.Contains(p.Id));
         }
 
         public void Remove(Amenaza obj)

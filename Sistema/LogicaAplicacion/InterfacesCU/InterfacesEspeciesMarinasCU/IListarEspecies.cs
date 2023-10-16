@@ -1,4 +1,4 @@
-﻿using LogicaNegocio;
+﻿using LogicaNegocio.Dominio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,8 @@ namespace LogicaAplicacion.InterfacesCU
 {
     public interface IListarEspecies
     {
-        IEnumerable<EspecieMarina> Listar();
+        public IEnumerable<Especie> Listar();
+
+        public IEnumerable<Especie> FindByIds(List<int> ids);
     }
 }

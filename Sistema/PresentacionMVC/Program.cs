@@ -56,20 +56,35 @@ builder.Services.AddScoped<IModificarUsuario, ModificarUsuario>();
 */
 
 // REPOSITORIOS
-builder.Services.AddScoped<IRepositorioUsuario, RepositorioUsuario>();
-builder.Services.AddScoped<IRepositorioEcosistema, RepositorioEcosistema>();
-builder.Services.AddScoped<IRepositorioPais, RepositorioPais>();
+builder.Services.AddScoped<IRepositorioUsuario,            RepositorioUsuario>();
+builder.Services.AddScoped<IRepositorioEcosistema,         RepositorioEcosistema>();
+builder.Services.AddScoped<IRepositorioPais,               RepositorioPais>();
+builder.Services.AddScoped<IRepositorioAmenaza,            RepositorioAmenaza>();
+builder.Services.AddScoped<IRepositorioEspecie,            RepositorioEspecie>();
+builder.Services.AddScoped<IRepositorioEstadoConservacion, RepositorioEstadoConservacion>();
 
 // CASOS DE USO
 // Usuario
-builder.Services.AddScoped<ILoginUsuario, CULoginUsuario>();
-builder.Services.AddScoped<IRegistroUsuario, CURegistroUsuario>();
+builder.Services.AddScoped<ILoginUsuario,          CULoginUsuario>();
+builder.Services.AddScoped<IRegistroUsuario,       CURegistroUsuario>();
 // Ecosistema
-builder.Services.AddScoped<IRegistroEcosistema, CURegistroEcosistema>();
+builder.Services.AddScoped<IListarEcosistemas,     CUListarEcosistemas>();
+builder.Services.AddScoped<IRegistrarEcosistema,   CURegistroEcosistema>();
+builder.Services.AddScoped<IBuscarEcosistemaPorId, CUBuscarEcosistemaPorId>();
+builder.Services.AddScoped<IEliminarEcosistema,    CUEliminarEcosistema>();
+builder.Services.AddScoped<IAsignarEspecieEcosistema, CUAsignarEspecieEcosistema>();
+
 // Pais
-builder.Services.AddScoped<IListarPaises, CUListarPaises>();
+builder.Services.AddScoped<IListarPaises,           CUListarPaises>();
 // Amenazas
-builder.Services.AddScoped<IListarAmenazas, CUListarAmenazas>();
+builder.Services.AddScoped<IListarAmenazas,         CUListarAmenazas>();
+// Especies
+builder.Services.AddScoped<IListarEspecies,         CUListarEspecies>();
+builder.Services.AddScoped<IRegistroEspecie,        CURegistroEspecie>();
+// Estados de conservacion
+builder.Services.AddScoped<IListarEstadoConservacion, CUListarEstados>();
+
+
 
 ConfigurationBuilder confBuilder = new ConfigurationBuilder();
 confBuilder.AddJsonFile("appsettings.json", false, true);

@@ -1,10 +1,10 @@
-﻿@model PresetacionMVC.Models.RegistroEcosistemaViewModel
+﻿@model PresentacionMVC.Models.RegistroEcosistemaViewModel
 
 @{
-    ViewData["Title"] = "Registro";
+    ViewData["Title"] = "Registro de Ecosistema";
 }
 
-<h1>Registro</h1>
+<h1>Registro de Ecosistema</h1>
 
 <h4>Ecosistema</h4>
 <hr />
@@ -12,41 +12,83 @@
 
     <div class="col-md-4">
 
-        <form asp-action="Registro">
+        <form asp-action="Registro" enctype="multipart/form-data">
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+            <!-- Nombre -->
             <div class="form-group">
                 <label asp-for="Ecosistema.Nombre" class="control-label"></label>
                 <input asp-for="Ecosistema.Nombre" class="form-control" />
                 <span asp-validation-for="Ecosistema.Nombre" class="text-danger"></span>
             </div>
+
+            <!-- Area -->
             <div class="form-group">
                 <label asp-for="Ecosistema.Area" class="control-label"></label>
                 <input asp-for="Ecosistema.Area" class="form-control" />
                 <span asp-validation-for="Ecosistema.Area" class="text-danger"></span>
             </div>
+
+            <!-- Descripción -->
             <div class="form-group">
                 <label asp-for="Ecosistema.DescripcionCaracteristicas" class="control-label"></label>
                 <input asp-for="Ecosistema.DescripcionCaracteristicas" class="form-control" />
                 <span asp-validation-for="Ecosistema.DescripcionCaracteristicas" class="text-danger"></span>
             </div>
+
+            <!-- Longitud -->
             <div class="form-group">
                 <label asp-for="Ecosistema.Longitud" class="control-label"></label>
                 <input asp-for="Ecosistema.Longitud" class="form-control" />
                 <span asp-validation-for="Ecosistema.Longitud" class="text-danger"></span>
             </div>
+
+            <!-- Latitud -->
             <div class="form-group">
                 <label asp-for="Ecosistema.Latitud" class="control-label"></label>
                 <input asp-for="Ecosistema.Latitud" class="form-control" />
                 <span asp-validation-for="Ecosistema.Latitud" class="text-danger"></span>
             </div>
+
+            <!-- Imagen -->
+            <div class="form-group">
+                <label asp-for="ArchivoImagen" class="control-label"></label>
+                <input asp-for="ArchivoImagen" class="form-control" />
+                <span asp-validation-for="ArchivoImagen" class="text-danger"></span>
+            </div>
+
+            <!-- Estados -->
+            <div class="form-group">
+                <label class="control-label">Estado de conservación</label>
+                <select name="IdEstado">
+
+                    <option></option>
+
+                    @foreach (LogicaNegocio.Dominio.EstadoConservacion estado in Model.Estados)
+                    {
+                        if (Model.IdEstado != default)
+                        {
+                            <option selected value="@estado.Id">@estado.Nombre</option>
+                        }
+                        else
+                        {
+                            <option value="@estado.Id">@estado.Nombre</option>
+                        }
+                    }
+                </select>
+
+            </div>
+
+            <!-- Paises -->
             <div class="form-group">
                 <label class="control-label">Paises</label>
-                <select name="IdPaisSeleccionado">
+                <select name="IdsPaisesSeleccionados" multiple>
+                    
                     @foreach (LogicaNegocio.Dominio.Pais pais in Model.Paises)
                     {
-                        if (pais.Id == Model.IdPaisSeleccionado)
+                        if (Model.IdsPaisesSeleccionados != null 
+                         && Model.IdsPaisesSeleccionados.Contains(pais.Id))
                         {
                             <option selected value="@pais.Id">@pais.Nombre</option>
                         }
@@ -56,7 +98,55 @@
                         }
                     }
                 </select>
+
             </div>
+
+            <!-- Amenazas -->
+            <div class="form-group">
+
+                <label class="control-label">Amenazas</label>
+
+                <select name="IdsAmenazasSeleccionadas" multiple>
+
+                    @foreach (LogicaNegocio.Dominio.Amenaza amenaza in Model.Amenazas)
+                    {
+                        if (Model.IdsAmenazasSeleccionadas != null
+                        && Model.IdsAmenazasSeleccionadas.Contains(amenaza.Id))
+                        {
+                            <option selected value="@amenaza.Id">@amenaza.Descripcion</option>
+                        }
+                        else
+                        {
+                            <option value="@amenaza.Id">@amenaza.Descripcion</option>
+                        }
+                    }
+                </select>
+
+            </div>
+
+            <!-- Especies -->
+            <div class="form-group">
+
+                <label class="control-label">Especies</label>
+
+                <select name="IdsEspeciesSeleccionadas" multiple>
+
+                    @foreach (LogicaNegocio.Dominio.Especie especie in Model.Especies)
+                    {
+                        if (Model.IdsEspeciesSeleccionadas != null
+                        && Model.IdsEspeciesSeleccionadas.Contains(especie.Id))
+                        {
+                            <option selected value="@especie.Id">@especie.NombreCientifico (@especie.NombreVulgar)</option>
+                        }
+                        else
+                        {
+                            <option value="@especie.Id">@especie.NombreCientifico (@especie.NombreVulgar)</option>
+                        }
+                    }
+                </select>
+
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

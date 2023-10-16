@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace LogicaNegocio
+namespace LogicaNegocio.Dominio
 {
     public class Pais : IValidable
     {
@@ -18,10 +18,12 @@ namespace LogicaNegocio
 
         public int Id { get; set; }
 
-        [MaxLength(50, ErrorMessage = "El nombre debe tener como maximo 50 caracteres"), MinLength(2, ErrorMessage = "El nombre debe tener como minimo 2 caracteres")]
+        [MaxLength(50, ErrorMessage = "El nombre debe tener como maximo 50 caracteres")]
+        [MinLength(2, ErrorMessage = "El nombre debe tener como minimo 2 caracteres")]
         public string Nombre { get; set; }
-        public string Codigo { get; set; }
+        public string Codigo { get; set; }        
 
+        public IEnumerable<Ecosistema> Ecosistemas { get; set; }
 
         public Pais()
         {

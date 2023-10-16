@@ -1,4 +1,4 @@
-﻿using LogicaNegocio;
+﻿using LogicaNegocio.Dominio;
 using LogicaNegocio.Dominio;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;

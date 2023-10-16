@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogicaNegocio
+namespace LogicaNegocio.Dominio
 {
     public class UbicacionGeografica// NO CREO NECESARIA UNA CLASE CON LA UBICACION
     {

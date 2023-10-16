@@ -22,5 +22,10 @@ namespace LogicaAplicacion.CasosDeUso
         {
             return repositorioAmenaza.FindAll();
         }
+
+        public IEnumerable<Amenaza> FindByIds(List<int> ids)
+        {
+            return repositorioAmenaza.FindByIds(ids);
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿using LogicaNegocio;
+﻿using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorio;
 using ExcepcionesPropias;
 using System;

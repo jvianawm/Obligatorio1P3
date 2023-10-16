@@ -1,5 +1,5 @@
 ﻿using LogicaAplicacion.InterfacesCU;
-using LogicaNegocio;
+using LogicaNegocio.Dominio;
 using LogicaNegocio.Interfaces_de_Repositorio;
 using LogicaNegocio.InterfacesRepositorio;
 using System;

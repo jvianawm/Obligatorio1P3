@@ -1,5 +1,5 @@
 ﻿using LogicaAplicacion.InterfacesCU;
-using LogicaNegocio;
+using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorio;
 using System;
 using System.Collections.Generic;
@@ -9,18 +9,17 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.CasosDeUso
 {
-    public class BajaEspecie : IBajaEspecieMarina
+    public class AltaEspecie : IAltaEspecieMarina
     {
-        public IRepositorioEspecieMarina Repo { get; set; }
-
-        public BajaEspecie (IRepositorioEspecieMarina repo)
+        public IRepositorioEspecie Repo {  get; set; }
+        public AltaEspecie(IRepositorioEspecie repo)
         {
             Repo = repo;
         }
 
-        public void Eliminar(EspecieMarina especie)
+        public void Alta(Especie especie)
         {
-            Repo.Remove(especie);   
+            Repo.Add(especie);
         }
     }
 }

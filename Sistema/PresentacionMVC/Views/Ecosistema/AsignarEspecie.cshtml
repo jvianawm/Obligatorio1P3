@@ -1,0 +1,84 @@
+﻿@model PresentacionMVC.Models.AsignarEspecieViewModel
+
+@{
+    ViewData["Title"] = "AsignarEspecie";
+}
+
+<h1>AsignarEspecie</h1>
+
+<h4>Especie</h4>
+
+<hr />
+
+<div class="row">
+
+    <div class="col-md-4">
+
+        <form asp-action="AsignarEspecie">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Amenazas -->
+            <div class="form-group">
+
+                <label class="control-label">Ecosistema</label>
+
+                <select name="IdEcosistemaSeleccionado">
+
+                    @foreach (LogicaNegocio.Dominio.Ecosistema ecosistema in Model.Ecosistemas)
+                    {
+                        if (Model.Ecosistemas != null
+                         && Model.IdEcosistemaSeleccionado == ecosistema.Id
+                        )
+                        {
+                            <option selected value="@ecosistema.Id">@ecosistema.Nombre</option>
+                        }
+                        else
+                        {
+                            <option value="@ecosistema.Id">@ecosistema.Nombre</option>
+                        }
+                    }
+                </select>
+
+            </div>
+
+            <!-- Especies -->
+            <div class="form-group">
+
+                <label class="control-label">Especie</label>
+
+                <select name="IdEspecieSeleccionada">
+
+                    @foreach (LogicaNegocio.Dominio.Especie especie in Model.Especies)
+                    {
+                        if (Model.Especies != null
+                         && Model.IdEspecieSeleccionada == especie.Id)
+                        {
+                            <option selected value="@especie.Id">@especie.NombreCientifico (@especie.NombreVulgar)</option>
+                        }
+                        else
+                        {
+                            <option value="@especie.Id">@especie.NombreCientifico (@especie.NombreVulgar)</option>
+                        }
+                    }
+                </select>
+
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Asignar" class="btn btn-primary" />
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

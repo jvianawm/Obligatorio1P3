@@ -9,6 +9,8 @@ namespace LogicaAplicacion.InterfacesCU
 {
     public interface IListarAmenazas
     {
-        IEnumerable<Amenaza> Listar();
+        public IEnumerable<Amenaza> Listar();
+
+        public IEnumerable<Amenaza> FindByIds(List<int> ids);
     }
 }

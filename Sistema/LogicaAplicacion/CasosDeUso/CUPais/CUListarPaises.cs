@@ -1,5 +1,5 @@
 ﻿using LogicaAplicacion.InterfacesCU;
-using LogicaNegocio;
+using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorio;
 using System;
 using System.Collections.Generic;
@@ -18,9 +18,14 @@ namespace LogicaAplicacion.CasosDeUso
             Repo = repo;
         }
 
-            public IEnumerable<Pais> Listar()
+        public IEnumerable<Pais> Listar()
         {
             return Repo.FindAll();
+        }
+
+        public IEnumerable<Pais> FindByIds(List<int> ids)
+        {
+            return Repo.FindByIds(ids);
         }
     }
 }

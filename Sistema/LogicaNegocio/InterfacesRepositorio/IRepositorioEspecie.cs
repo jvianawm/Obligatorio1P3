@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace LogicaNegocio.InterfacesRepositorio
 {
-    public interface IRepositorioEspecieMarina: IRepositorio<EspecieMarina>
+    public interface IRepositorioEspecie: IRepositorio<Especie>
     {
-
+        public IEnumerable<Especie> FindByIds(List<int> ids);
     }
 }

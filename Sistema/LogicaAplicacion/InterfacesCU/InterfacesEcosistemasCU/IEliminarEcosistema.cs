@@ -1,4 +1,4 @@
-﻿using LogicaNegocio;
+﻿using LogicaNegocio.Dominio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.InterfacesCU
 {
-    public interface IRegistroEcosistema
+    public interface IEliminarEcosistema
     {
-        void Registrar(Ecosistema ecosistema);
+        void Eliminar(Ecosistema ecosistema);
     }
-
 }

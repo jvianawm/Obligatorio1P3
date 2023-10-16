@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using LogicaAplicacion.CasosDeUso;
 using LogicaAplicacion.InterfacesCU;
-using LogicaNegocio;
+using LogicaNegocio.Dominio;
 using PresentacionMVC.Filters;
 using System.Drawing;
 using PresetacionMVC.Models;

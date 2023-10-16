@@ -1,0 +1,171 @@
+﻿@model PresentacionMVC.Models.RegistroEspecieViewModel
+
+@{
+    ViewData["Title"] = "Registro de Especie";
+}
+
+<h1>Registro de Especie</h1>
+
+<h4>Especie</h4>
+
+<hr />
+
+<div class="row">
+
+    <div class="col-md-4">
+
+        <form asp-action="Registro" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Nombre Científico -->
+            <div class="form-group">
+                <label asp-for="Especie.NombreCientifico" class="control-label"></label>
+                <input asp-for="Especie.NombreCientifico" class="form-control" />
+                <span asp-validation-for="Especie.NombreCientifico" class="text-danger"></span>
+            </div>
+
+            <!-- Nombre Vulgar -->
+            <div class="form-group">
+                <label asp-for="Especie.NombreVulgar" class="control-label"></label>
+                <input asp-for="Especie.NombreVulgar" class="form-control" />
+                <span asp-validation-for="Especie.NombreVulgar" class="text-danger"></span>
+            </div>
+
+            <!-- Descripcion -->
+            <div class="form-group">
+                <label asp-for="Especie.Descripcion" class="control-label"></label>
+                <input asp-for="Especie.Descripcion" class="form-control" />
+                <span asp-validation-for="Especie.Descripcion" class="text-danger"></span>
+            </div>
+
+            <!-- Rango Peso -->
+            <div class="form-group">
+                <label asp-for="Especie.RangoPeso" class="control-label"></label>
+                <input asp-for="Especie.RangoPeso" class="form-control" />
+                <span asp-validation-for="Especie.RangoPeso" class="text-danger"></span>
+            </div>
+
+            <!-- Rango Longitud -->
+            <div class="form-group">
+                <label asp-for="Especie.RangoLongitud" class="control-label"></label>
+                <input asp-for="Especie.RangoLongitud" class="form-control" />
+                <span asp-validation-for="Especie.RangoLongitud" class="text-danger"></span>
+            </div>
+
+            <!-- Imagen -->
+            <div class="form-group">
+                <label asp-for="ArchivoImagen" class="control-label"></label>
+                <input asp-for="ArchivoImagen" class="form-control" />
+                <span asp-validation-for="ArchivoImagen" class="text-danger"></span>
+            </div>
+
+            <!-- Estados -->
+            <div class="form-group">
+                <label class="control-label">Estado de conservación</label>
+                <select name="IdEstado">
+
+                    <option></option>
+
+                    @foreach (LogicaNegocio.Dominio.EstadoConservacion estado in Model.Estados)
+                    {
+                        if (Model.IdEstado != default)
+                        {
+                            <option selected value="@estado.Id">@estado.Nombre</option>
+                        }
+                        else
+                        {
+                            <option value="@estado.Id">@estado.Nombre</option>
+                        }
+                    }
+                </select>
+
+            </div>
+
+            <!-- Amenazas -->
+            <div class="form-group">
+
+                <label class="control-label">Amenazas</label>
+
+                <select name="IdsAmenazasSeleccionadas" multiple>
+
+                    @foreach (LogicaNegocio.Dominio.Amenaza amenaza in Model.Amenazas)
+                    {
+                        if (Model.IdsAmenazasSeleccionadas != null
+                        && Model.IdsAmenazasSeleccionadas.Contains(amenaza.Id))
+                        {
+                            <option selected value="@amenaza.Id">@amenaza.Descripcion</option>
+                        }
+                        else
+                        {
+                            <option value="@amenaza.Id">@amenaza.Descripcion</option>
+                        }
+                    }
+                </select>
+
+            </div>
+
+            <!-- Ecosistemas -->
+            <div class="form-group">
+
+                <label class="control-label">Ecosistemas</label>
+
+                <select name="IdsEcosistemasSeleccionados" multiple>
+
+                    @foreach (LogicaNegocio.Dominio.Ecosistema ecosistema in Model.Ecosistemas)
+                    {
+                        if (Model.IdsEcosistemasSeleccionados != null
+                        && Model.IdsEcosistemasSeleccionados.Contains(ecosistema.Id))
+                        {
+                            <option selected value="@ecosistema.Id">@ecosistema.Nombre (@ecosistema.Nombre)</option>
+                        }
+                        else
+                        {
+                            <option value="@ecosistema.Id">@ecosistema.Nombre (@ecosistema.Nombre)</option>
+                        }
+                    }
+                </select>
+
+            </div>
+
+            <!-- Ecosistemas Posibles -->
+            <div class="form-group">
+
+                <label class="control-label">Ecosistemas Posibles</label>
+
+                <select name="IdsEcosistemasPosiblesSeleccionados" multiple>
+
+                    @foreach (LogicaNegocio.Dominio.Ecosistema ecosistema in Model.Ecosistemas)
+                    {
+                        if (Model.IdsEcosistemasPosiblesSeleccionados != null
+                        && Model.IdsEcosistemasPosiblesSeleccionados.Contains(ecosistema.Id))
+                        {
+                            <option selected value="@ecosistema.Id">@ecosistema.Nombre (@ecosistema.Nombre)</option>
+                        }
+                        else
+                        {
+                            <option value="@ecosistema.Id">@ecosistema.Nombre (@ecosistema.Nombre)</option>
+                        }
+                    }
+                </select>
+
+            </div>
+
+            <!-- Botón crear -->
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

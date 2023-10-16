@@ -1,23 +1,26 @@
 ﻿using LogicaAplicacion.InterfacesCU;
-using LogicaNegocio;
+using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorio;
 using System;
+using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace LogicaAplicacion.CasosDeUso
 {
-    public class AltaEspecie : IAltaEspecieMarina
+    public class CURegistroEspecie : IRegistroEspecie
     {
-        public IRepositorioEspecieMarina Repo {  get; set; }
-        public AltaEspecie(IRepositorioEspecieMarina repo)
+        public IRepositorioEspecie Repo { get; set; }
+
+        public CURegistroEspecie(IRepositorioEspecie repo)
         {
             Repo = repo;
         }
 
-        public void Alta(EspecieMarina especie)
+        public void Registrar(Especie especie)
         {
             Repo.Add(especie);
         }

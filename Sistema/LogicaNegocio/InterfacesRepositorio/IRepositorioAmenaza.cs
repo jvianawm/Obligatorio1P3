@@ -10,6 +10,6 @@ namespace LogicaNegocio.InterfacesRepositorio
 {
     public interface IRepositorioAmenaza: IRepositorio<Amenaza>
     {
-
+        public IEnumerable<Amenaza> FindByIds(List<int> ids);
     }
 }

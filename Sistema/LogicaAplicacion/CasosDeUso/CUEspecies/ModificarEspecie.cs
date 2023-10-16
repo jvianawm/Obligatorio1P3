@@ -1,5 +1,5 @@
 ﻿using LogicaAplicacion.InterfacesCU;
-using LogicaNegocio;
+using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorio;
 using System;
 using System.Collections.Generic;
@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.CasosDeUso
 {
-    public class ListarEspecies: IListarEspecies
+    public class ModificarEspecie : IModificarEspecie
     {
-        public IRepositorioEspecieMarina Repo { get; set; }
+        public IRepositorioEspecie Repo { get; set; }
 
-        public ListarEspecies (IRepositorioEspecieMarina repo)
+        public ModificarEspecie(IRepositorioEspecie repo)
         {
             Repo = repo;
         }
 
-        public IEnumerable<EspecieMarina> Listar()
+            public void Modificar(Especie especie)
         {
-            return Repo.FindAll();
+            Repo.Update(especie);
         }
     }
 }

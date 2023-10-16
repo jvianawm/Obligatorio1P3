@@ -1,5 +1,5 @@
 ﻿using LogicaAplicacion.InterfacesCU;
-using LogicaNegocio;
+using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorio;
 using System;
 using System.Collections.Generic;
@@ -11,14 +11,14 @@ namespace LogicaAplicacion.CasosDeUso
 {
     public class BuscarEspeciePorId: IBuscarEspeciePorId
     {
-        public IRepositorioEspecieMarina Repo {  get; set; }    
+        public IRepositorioEspecie Repo {  get; set; }    
 
-        public BuscarEspeciePorId(IRepositorioEspecieMarina repo)
+        public BuscarEspeciePorId(IRepositorioEspecie repo)
         {
             Repo = repo;
         }
 
-        public EspecieMarina Buscar(int id)
+        public Especie Buscar(int id)
         {
            return Repo.FindById(id);
         }

@@ -1,4 +1,4 @@
-﻿using LogicaNegocio;
+﻿using LogicaNegocio.Dominio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,8 @@ namespace LogicaAplicacion.InterfacesCU
 {
     public interface IListarPaises
     {
-        IEnumerable<Pais> Listar();
+        public IEnumerable<Pais> Listar();
+
+        public IEnumerable<Pais> FindByIds(List<int> ids);
     }
 }

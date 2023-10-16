@@ -1,4 +1,4 @@
-﻿using LogicaNegocio;
+﻿using LogicaNegocio.Dominio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,6 @@ namespace LogicaAplicacion.InterfacesCU
 {
     public interface IModificarEspecie
     {
-        void Modificar(EspecieMarina especie);
+        void Modificar(Especie especie);
     }
 }

@@ -1,4 +1,4 @@
-﻿using LogicaNegocio;
+﻿using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorio;
 using System;
 using System.Collections.Generic;
@@ -8,9 +8,15 @@ using System.Threading.Tasks;
 
 namespace LogicaAccesoDatos
 {
-    internal class RepositorioEstadoConservacion : IRepositorioEstadoConservacion
-
+    public class RepositorioEstadoConservacion : IRepositorioEstadoConservacion
     {
+        public PlataformaContext Context { get; set; }
+
+        public RepositorioEstadoConservacion(PlataformaContext context)
+        {
+            Context = context;
+        }
+
         public void Add(EstadoConservacion obj)
         {
             throw new NotImplementedException();
@@ -18,12 +24,12 @@ namespace LogicaAccesoDatos
 
         public IEnumerable<EstadoConservacion> FindAll()
         {
-            throw new NotImplementedException();
+            return Context.EstadoConservacion;
         }
 
         public EstadoConservacion FindById(int id)
         {
-            throw new NotImplementedException();
+            return Context.EstadoConservacion.Find(id);
         }
 
         public void Remove(EstadoConservacion obj)
