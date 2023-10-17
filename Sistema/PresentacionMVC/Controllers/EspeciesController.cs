@@ -22,8 +22,8 @@ namespace PresentacionMVC.Controllers
         public IListarAmenazas CUListarAmenazas { get; set; }
         public IListarEcosistemas CUListarEcosistemas { get; set; }
         public IRegistroEspecie CURegistroEspecie { get; set; }
-
         public IListarEstadoConservacion CUListarEstados { get; set; }
+        public IListarEspecies CUListarEspecies { get; set; }
 
         public IWebHostEnvironment WebHostEnvironment { get; set; }
 
@@ -33,6 +33,7 @@ namespace PresentacionMVC.Controllers
             IListarEcosistemas cuListarEcosistemas,
             IRegistroEspecie cuRegistroEspecie,
             IListarEstadoConservacion cuListarEstados,
+            IListarEspecies cuListarEspecies,
             IWebHostEnvironment webHostEnvironment
         )
         {
@@ -40,6 +41,7 @@ namespace PresentacionMVC.Controllers
             CUListarEcosistemas = cuListarEcosistemas;
             CURegistroEspecie = cuRegistroEspecie;
             CUListarEstados = cuListarEstados;
+            CUListarEspecies = cuListarEspecies;
             WebHostEnvironment = webHostEnvironment;
         }
         
@@ -118,9 +120,11 @@ namespace PresentacionMVC.Controllers
         #region 9) Consulta de especies.
         /*
             Se podrán filtrar las especies y visualizarlas.
-            Se desplegarán todos sus datos, incluyendo su foto y los datos de los ecosistemas que habita.
-            El ecosistema también incluirá su foto.
+                - Se desplegarán todos sus datos, incluyendo su foto y 
+                - los datos de los ecosistemas que habita (El ecosistema también incluirá su foto.)
+                
             Cuando no se incluyan filtros, se mostrarán todas las especies.
+
             La búsqueda se podrá realizar por los siguientes criterios (restrictivos):
                 - Por nombre científico.
                 - Especies en peligro de extinción (las que su estado de conservación sea menor que 60, también las que sufran más de 3 amenazas o también si habitan un ecosistema que sufra más de 3 amenazas siempre que ese ecosistema tenga un grado de conservación menor que 60).
@@ -128,6 +132,40 @@ namespace PresentacionMVC.Controllers
                 - Por ecosistema: las especies que habitan ese ecosistema(no las que pueden habitarlo, sino las que efectivamente lo habitan).
                 - Dada una especie, todos los ecosistemas en los que no puede habitar.
         */
+
+        [HttpGet]
+        [UsuarioAutenticado]
+        public ActionResult Consultas()
+        {
+            ConsultaEspecieViewModel vm = new()
+            {
+                Ecosistemas = CUListarEcosistemas.Listar(),
+                Especies = CUListarEspecies.Listar(),
+            };
+
+            vm.RutaDirectorioImagenesEcosistemas = Path.Combine("img", "ecosistemas");
+            vm.RutaDirectorioImagenesEspecies = Path.Combine("img", "especies");
+
+            return View(vm);
+        }
+
+        [HttpGet]
+        [UsuarioAutenticado]
+        public ActionResult Detalles(int id)
+        {
+            ConsultaEspecieViewModel vm = new()
+            {
+                Ecosistemas = CUListarEcosistemas.Listar(),
+                Especies = CUListarEspecies.Listar(),
+            };
+
+            vm.RutaDirectorioImagenesEcosistemas = Path.Combine("img", "ecosistemas");
+            vm.RutaDirectorioImagenesEspecies = Path.Combine("img", "especies");
+
+            return View(vm);
+        }
+
         #endregion
     }
+
 }

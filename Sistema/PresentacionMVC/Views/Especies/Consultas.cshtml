@@ -1,0 +1,101 @@
+﻿@model PresentacionMVC.Models.ConsultaEspecieViewModel
+
+@{
+    ViewData["Title"] = "Consuta";
+}
+
+<h1>Consuta</h1>
+
+
+        <form asp-action="Consultar">            
+
+            <!-- Especies por nombre cientifico -->
+            <div class="form-group">                
+
+                <select name="IdNombresCientificoSeleccionado">
+
+                    @foreach (LogicaNegocio.Dominio.Especie especie in Model.Especies)
+                    {
+                        if (Model.Especies != null
+                         && Model.IdEspeciesSeleccionado == especie.Id
+                        )
+                        {
+                            <option selected value="@especie.Id">@especie.Nombre</option>
+                        }
+                        else
+                        {
+                            <option value="@especie.Id">@especie.Nombre</option>
+                        }
+                    }
+                </select>
+
+            </div>
+
+        </form>
+
+@* 
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Especies.First().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especies.First().NombreCientifico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especies.First().NombreVulgar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especies.First().Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especies.First().RangoPeso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especies.First().RangoLongitud)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especies.First().ArchivoImagen)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Especies)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreCientifico)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreVulgar)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RangoPeso)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RangoLongitud)
+                </td>
+                <td>
+                    <img src="/@Model.RutaDirectorioImagenesEspecies/@item.ArchivoImagen" height="30">
+                </td>
+                <td>
+                    @* @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) | *@
+                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                    @* @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) *@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+ *@
