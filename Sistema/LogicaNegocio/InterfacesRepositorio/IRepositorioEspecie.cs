@@ -13,6 +13,7 @@ namespace LogicaNegocio.InterfacesRepositorio
         public IEnumerable<Especie> FindByIds(List<int> ids);
 
         public IEnumerable<Especie> FindEspeciesEnPeligro();
-        
+
+        public IEnumerable<Especie> FindByRangoPeso(decimal minimo, decimal maximo);
     }
 }

@@ -62,9 +62,7 @@
                         <img src="/@Model.RutaDirectorioImagenesEcosistemas/@item.ArchivoImagen" height="30">
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                        @Html.ActionLink("Detalles", "Detalles", new { id=item.Id })
                     </td>
                 </tr>
             }
@@ -74,7 +72,7 @@
 }
 else
 {
-    <div>
+    <div class="sin-datos">
         No se encontraron resultados
     </div>
 }

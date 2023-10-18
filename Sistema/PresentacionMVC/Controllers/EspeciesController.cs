@@ -28,7 +28,8 @@ namespace PresentacionMVC.Controllers
         public IBuscarEcosistemaPorId CUBuscarEcosistemaPorId { get; set; }
         public IBuscarEcosistemasPorEspecieId CUBuscarEcosistemasPorEspecieId { get; set; }
         public IListarEspeciesEnPeligro CUListarEspeciesEnPeligro { get; set; }
-        public IEcosistemasEspecieNoPuedeHabitar CUEcosistemasEspecieNoPuedeHabitar { get; set; }        
+        public IEcosistemasEspecieNoPuedeHabitar CUEcosistemasEspecieNoPuedeHabitar { get; set; }
+        public IBuscarPorRangoPeso CUBuscarPorRangoPeso { get; set; }
         public IWebHostEnvironment WebHostEnvironment { get; set; }
 
         public EspeciesController(
@@ -42,6 +43,7 @@ namespace PresentacionMVC.Controllers
             IBuscarEcosistemasPorEspecieId cuBuscarEcosistemaPorEspecieId,
             IListarEspeciesEnPeligro cuListarEspeciesEnPeligro,
             IEcosistemasEspecieNoPuedeHabitar cuEcosistemasEspecieNoPuedeHabitar,
+            IBuscarPorRangoPeso cuBuscarPorRangoPeso,
             IWebHostEnvironment webHostEnvironment
         )
         {
@@ -55,6 +57,7 @@ namespace PresentacionMVC.Controllers
             CUBuscarEcosistemasPorEspecieId = cuBuscarEcosistemaPorEspecieId;
             CUListarEspeciesEnPeligro = cuListarEspeciesEnPeligro;
             CUEcosistemasEspecieNoPuedeHabitar = cuEcosistemasEspecieNoPuedeHabitar;
+            CUBuscarPorRangoPeso = cuBuscarPorRangoPeso;
             WebHostEnvironment = webHostEnvironment;
         }
         
@@ -170,10 +173,6 @@ namespace PresentacionMVC.Controllers
             vm.Especies = CUListarEspecies.Listar();
             vm.Ecosistemas = CUListarEcosistemas.Listar();
             vm.EspeciesEnPeligro = CUListarEspeciesEnPeligro.Listar();
-            
-            //if (vm.TipoDeConsulta == "todasEspecies") { }
-            //if (vm.TipoDeConsulta == "peligroExtincion") { }
-            //if (vm.TipoDeConsulta == "rangoPeso") { }
                        
             if (vm.TipoDeConsulta == "nombreCientifico")
             {
@@ -189,6 +188,11 @@ namespace PresentacionMVC.Controllers
             if (vm.TipoDeConsulta == "noPuedeHabitar") 
             { 
                 vm.EcosistemasEspecieNoPuedeHabitar = CUEcosistemasEspecieNoPuedeHabitar.Buscar(vm.IdNoPuedeHabitar);
+            }
+
+            if (vm.TipoDeConsulta == "rangoPeso")
+            {
+                vm.EspeciesPorRangoPeso = CUBuscarPorRangoPeso.Buscar(vm.Especie.PesoMinimo, vm.Especie.PesoMaximo);
             }
 
             vm.RutaDirectorioImagenesEcosistemas = Path.Combine("img", "ecosistemas");

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.InterfacesCU
 {
-    public interface IAltaEspecieMarina
+    public interface IBuscarPorRangoPeso
     {
-        void Alta(Especie especie);
+        public IEnumerable<Especie> Buscar(decimal minimo, decimal maximo);
     }
 }

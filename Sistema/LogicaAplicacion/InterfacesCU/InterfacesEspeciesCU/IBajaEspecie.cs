@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.InterfacesCU
 {
-    public interface IBajaEspecieMarina
+    public interface IBajaEspecie
     {
         void Eliminar(Especie especie);
     }

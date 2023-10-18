@@ -178,6 +178,12 @@ namespace LogicaAccesoDatos.Migrations
                     b.Property<int>("EstadoConservacionId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("LongitudMaxima")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("LongitudMinima")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("NombreCientifico")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -188,13 +194,11 @@ namespace LogicaAccesoDatos.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("RangoLongitud")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("PesoMaximo")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("RangoPeso")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("PesoMinimo")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

@@ -1,5 +1,6 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
 }
 
 @media (min-width: 768px) {
@@ -19,4 +20,28 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+table {   
+    font-size: 12px;
+}
+
+.btn {
+    padding:3px 10px !important;
+}
+
+.ui-widget {
+    font-size: 14px !important;
+}
+
+.sin-datos {
+    padding: 30px;
+}
+
+.form-group {
+    padding-bottom: 10px;
 }

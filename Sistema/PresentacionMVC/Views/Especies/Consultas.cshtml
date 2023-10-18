@@ -4,7 +4,7 @@
     ViewData["Title"] = "Consuta";
 }
 
-<h1>Consuta</h1>
+<h1>Consutas</h1>
 
 <div id="tabs">
 
@@ -81,7 +81,7 @@
         }
         else
         {
-            <div>
+            <div class="sin-datos">
                 No se encontraron especien en peligro de extinción
             </div>
         }
@@ -102,17 +102,18 @@
     <!-- Por rango de peso -->
     <div id="tabs-4">
 
-        @if (Model.TipoDeConsulta == "nombreVulgar" && Model.Especies.Any())
-        {
-            @Html.Partial("_ListaEspecies", Model)
-        }
-
         <form asp-action="Consultas">
 
             <div class="form-group">
-                <label asp-for="Especie.RangoPeso" class="control-label"></label>
-                <input asp-for="Especie.RangoPeso" class="form-control" />
-                <span asp-validation-for="Especie.RangoPeso" class="text-danger"></span>
+                <label asp-for="Especie.PesoMinimo" class="control-label"></label>
+                <input asp-for="Especie.PesoMinimo" class="form-control" />
+                <span asp-validation-for="Especie.PesoMinimo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Especie.PesoMaximo" class="control-label"></label>
+                <input asp-for="Especie.PesoMaximo" class="form-control" />
+                <span asp-validation-for="Especie.PesoMaximo" class="text-danger"></span>
             </div>
 
             <input type="hidden" value="rangoPeso" name="TipoDeConsulta" />
@@ -120,6 +121,20 @@
             <input type="submit" value="Buscar" class="btn btn-primary" />
 
         </form>   
+
+        @if (Model.TipoDeConsulta == "rangoPeso")
+        {
+            if (Model.EspeciesPorRangoPeso.Any())
+            {
+                @Html.Partial("_ListaEspeciesPorRangoPeso", Model)
+            }
+            else
+            {
+                <div class="sin-datos">
+                    No se encontraron especies en el rango de peso indicado
+                </div>    
+            }
+        }       
 
     </div>
 
@@ -158,7 +173,7 @@
             }           
             else
             {
-                <div>
+                <div class="sin-datos">
                     No se encontraron especies vinculadas al ecosistema indicado
                 </div>
             }
@@ -201,11 +216,10 @@
             }
             else
             {
-                <div>
+                <div class="sin-datos">
                     No se encontraron ecosistemas incompatibles para la especie
                 </div>
             }
-
         }
 
     </div>

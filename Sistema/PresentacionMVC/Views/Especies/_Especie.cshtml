@@ -17,10 +17,16 @@
                 @Html.DisplayNameFor(model => model.Especie.Descripcion)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Especie.RangoPeso)
+                @Html.DisplayNameFor(model => model.Especie.PesoMinimo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Especie.RangoLongitud)
+                @Html.DisplayNameFor(model => model.Especie.PesoMaximo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especie.LongitudMinima)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especie.LongitudMaxima)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Especie.ArchivoImagen)
@@ -43,10 +49,16 @@
                 @Html.DisplayFor(model => model.Especie.Descripcion)
             </td>
             <td>
-                @Html.DisplayFor(model => model.Especie.RangoPeso)
+                @Html.DisplayFor(model => model.Especie.PesoMinimo)
             </td>
             <td>
-                @Html.DisplayFor(model => model.Especie.RangoLongitud)
+                @Html.DisplayFor(model => model.Especie.PesoMaximo)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Especie.LongitudMinima)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Especie.LongitudMaxima)
             </td>
             <td>
                 <img src="/@Model.RutaDirectorioImagenesEspecies/@Model.Especie.ArchivoImagen" height="30">

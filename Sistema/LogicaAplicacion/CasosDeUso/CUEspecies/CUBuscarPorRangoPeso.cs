@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.CasosDeUso
 {
-    public class BajaEspecie : IBajaEspecie
+    public class CUBuscarPorRangoPeso : IBuscarPorRangoPeso
     {
         public IRepositorioEspecie Repo { get; set; }
 
-        public BajaEspecie (IRepositorioEspecie repo)
+        public CUBuscarPorRangoPeso(IRepositorioEspecie repo)
         {
             Repo = repo;
         }
 
-        public void Eliminar(Especie especie)
+        public IEnumerable<Especie> Buscar(decimal minimo, decimal maximo)
         {
-            Repo.Remove(especie);   
+            return Repo.FindByRangoPeso(minimo, maximo);
         }
     }
 }

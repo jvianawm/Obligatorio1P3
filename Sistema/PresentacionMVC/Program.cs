@@ -17,7 +17,6 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-
 // REPOSITORIOS
 builder.Services.AddScoped<IRepositorioUsuario, RepositorioUsuario>();
 builder.Services.AddScoped<IRepositorioEcosistema, RepositorioEcosistema>();
@@ -48,9 +47,9 @@ builder.Services.AddScoped<IListarEspecies, CUListarEspecies>();
 builder.Services.AddScoped<IRegistroEspecie, CURegistroEspecie>();
 builder.Services.AddScoped<IBuscarEspeciePorId, CUBuscarEspeciePorId>();
 builder.Services.AddScoped<IListarEspeciesEnPeligro, CUListarEspeciesEnPeligro>();
+builder.Services.AddScoped<IBuscarPorRangoPeso, CUBuscarPorRangoPeso>();
 // Estados de conservacion
 builder.Services.AddScoped<IListarEstadoConservacion, CUListarEstados>();
-
 
 
 ConfigurationBuilder confBuilder = new ConfigurationBuilder();

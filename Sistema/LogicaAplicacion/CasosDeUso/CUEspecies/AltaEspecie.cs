@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.CasosDeUso
 {
-    public class AltaEspecie : IAltaEspecieMarina
+    public class AltaEspecie : IAltaEspecie
     {
         public IRepositorioEspecie Repo {  get; set; }
         public AltaEspecie(IRepositorioEspecie repo)

@@ -26,9 +26,12 @@ namespace LogicaNegocio.Dominio
         [MinLength(50, ErrorMessage = "La descripcion debe tener como minimo 50 caracteres")]
         public string Descripcion { get; set; }
 
-        public string RangoPeso { get; set; }
+        public decimal PesoMinimo { get; set; }
 
-        public string RangoLongitud  { get; set; }
+        public decimal PesoMaximo { get; set; }
+
+        public decimal LongitudMinima { get; set; }
+        public decimal LongitudMaxima { get; set; }
 
         public ICollection<Amenaza> Amenazas { get; set; }
 
@@ -57,11 +60,25 @@ namespace LogicaNegocio.Dominio
         {
             if (string.IsNullOrEmpty(NombreCientifico)
              || string.IsNullOrEmpty(Descripcion)
-             || string.IsNullOrEmpty(RangoPeso)
-             || string.IsNullOrEmpty(RangoLongitud)
             )
             {
                 throw new Exception("No pueden haber datos vacios");
+            }
+        }
+
+        public void ValidarPeso()
+        {
+            if(PesoMinimo >= PesoMaximo)
+            {
+                throw new Exception("El peso mínimo no puede ser mayor o igual al máximo");
+            }
+        }
+
+        public void ValidarLongitud()
+        {
+            if (LongitudMinima >= LongitudMaxima)
+            {
+                throw new Exception("La longitud mínima no puede ser mayor o igual la máxima");
             }
         }
 

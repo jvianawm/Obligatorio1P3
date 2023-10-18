@@ -16,10 +16,16 @@
                 @Html.DisplayNameFor(model => model.EspeciesPorEcosistema.First().Descripcion)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EspeciesPorEcosistema.First().RangoPeso)
+                @Html.DisplayNameFor(model => model.EspeciesPorEcosistema.First().PesoMinimo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EspeciesPorEcosistema.First().RangoLongitud)
+                @Html.DisplayNameFor(model => model.EspeciesPorEcosistema.First().PesoMaximo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EspeciesPorEcosistema.First().LongitudMinima)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EspeciesPorEcosistema.First().LongitudMaxima)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.EspeciesPorEcosistema.First().ArchivoImagen)
@@ -44,16 +50,22 @@
                     @Html.DisplayFor(modelItem => item.Descripcion)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.RangoPeso)
+                    @Html.DisplayFor(modelItem => item.PesoMinimo)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.RangoLongitud)
+                    @Html.DisplayFor(modelItem => item.PesoMaximo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LongitudMinima)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LongitudMaxima)
                 </td>
                 <td>
                     <img src="/@Model.RutaDirectorioImagenesEspecies/@item.ArchivoImagen" height="30">
                 </td>
                 <td>
-                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                    @Html.ActionLink("Detalles", "Detalles", new { id=item.Id })
 
                 </td>
             </tr>

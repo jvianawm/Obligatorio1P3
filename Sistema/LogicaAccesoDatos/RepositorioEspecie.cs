@@ -72,8 +72,15 @@ namespace LogicaAccesoDatos
                  || es.Amenazas.Count() > 3
                  || es.Ecosistemas.Any(ec => ec.Amenazas.Count() > 3 && ec.EstadoConservacion.Estado < 60)
                 ).ToList();
-        }        
+        }
 
+        public IEnumerable<Especie> FindByRangoPeso(decimal minimo, decimal maximo)
+        {
+            return Context.Especies
+                .Include(ec => ec.Ecosistemas)
+                .Where(e => e.PesoMinimo >= minimo && e.PesoMaximo <= maximo);
+        }
+        
         public void Remove(Especie obj)
         {
             throw new NotImplementedException();

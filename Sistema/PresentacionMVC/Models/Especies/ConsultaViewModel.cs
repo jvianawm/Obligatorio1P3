@@ -15,9 +15,8 @@ namespace PresentacionMVC.Models
         public IEnumerable<Especie> Especies { get; set; }
         public IEnumerable<Especie> EspeciesEnPeligro { get; set; }
         public IEnumerable<Especie> EspeciesPorEcosistema { get; set; }
+        public IEnumerable<Especie> EspeciesPorRangoPeso { get; set; }
         public int IdEspecieSeleccionada { get; set; }
-
-        
 
         public string RutaDirectorioImagenesEspecies { get; set; }
         public string RutaDirectorioImagenesEcosistemas { get; set; }
@@ -25,12 +24,7 @@ namespace PresentacionMVC.Models
         public string TipoDeConsulta { get; set; }        
 
         public int IdNombreCientifico { get; set; }
-
         public int IdPorEcosistema { get; set; }
-
         public int IdNoPuedeHabitar { get; set; }
-        
-
-
     }
 }
