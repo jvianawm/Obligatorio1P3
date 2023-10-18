@@ -19,190 +19,195 @@
 
     <!-- Todas las especies -->
     <div id="tabs-1">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Especies.First().Id)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Especies.First().NombreCientifico)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Especies.First().NombreVulgar)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Especies.First().Descripcion)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Especies.First().RangoPeso)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Especies.First().RangoLongitud)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Especies.First().ArchivoImagen)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Especies)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NombreCientifico)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NombreVulgar)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Descripcion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RangoPeso)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RangoLongitud)
-                        </td>
-                        <td>
-                            <img src="/@Model.RutaDirectorioImagenesEspecies/@item.ArchivoImagen" height="30">
-                        </td>
-                        <td>
-                            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
 
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        @if (Model.Especies.Any())
+        {
+            @Html.Partial("_ListaEspecies", Model)
+        }
+
+        <form asp-action="Consultas">
+            
+            <input type="hidden" value="todasEspecies" name="TipoDeConsulta" />
+
+            <!-- Botón crear -->
+            <div class="form-group">
+                <input type="submit" value="Actualizar" class="btn btn-primary" />
+            </div>
+
+        </form>
 
     </div>
 
     <!-- Por nombre científico -->
     <div id="tabs-2">
-        <select name="IdEspecieSeleccionada">
 
-            @foreach (LogicaNegocio.Dominio.Especie especie in Model.Especies)
-            {
-                if (Model.Especies != null
-                && Model.IdEspecieSeleccionada == especie.Id)
+        <form asp-action="Consultas">                     
+
+            <select name="IdNombreCientifico">
+
+                @foreach (LogicaNegocio.Dominio.Especie especie in Model.Especies)
                 {
-                    <option selected value="@especie.Id">@especie.NombreCientifico (@especie.NombreVulgar)</option>
+                    if (Model.Especies != null
+                    && Model.IdNombreCientifico == especie.Id)
+                    {
+                        <option selected value="@especie.Id">@especie.NombreCientifico (@especie.NombreVulgar)</option>
+                    }
+                    else
+                    {
+                        <option value="@especie.Id">@especie.NombreCientifico (@especie.NombreVulgar)</option>
+                    }
                 }
-                else
-                {
-                    <option value="@especie.Id">@especie.NombreCientifico (@especie.NombreVulgar)</option>
-                }
-            }
-        </select>
+            </select>
 
+            <input type="hidden" value="nombreCientifico" name="TipoDeConsulta" />
 
-        <input type="submit" value="Buscar" class="btn btn-primary" />
+            <input type="submit" value="Buscar" class="btn btn-primary" />
+
+        </form>
+        
+        @if (Model.TipoDeConsulta == "nombreCientifico" && Model.Especies.Any())
+        {
+            @Html.Partial("_Especie")
+        }
   
     </div>
 
     <!-- En peligro de extinción -->
     <div id="tabs-3">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Especies.First().Id)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Especies.First().NombreCientifico)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Especies.First().NombreVulgar)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Especies.First().Descripcion)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Especies.First().RangoPeso)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Especies.First().RangoLongitud)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Especies.First().ArchivoImagen)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Especies)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NombreCientifico)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NombreVulgar)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Descripcion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RangoPeso)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RangoLongitud)
-                        </td>
-                        <td>
-                            <img src="/@Model.RutaDirectorioImagenesEspecies/@item.ArchivoImagen" height="30">
-                        </td>
-                        <td>
-                            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
 
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        @if (Model.EspeciesEnPeligro != null && Model.EspeciesEnPeligro.Count() > 0)
+        {
+            @Html.Partial("_ListaEspeciesEnPeligro", Model)
+        }
+        else
+        {
+            <div>
+                No se encontraron especien en peligro de extinción
+            </div>
+        }
+
+        <form asp-action="Consultas">
+
+            <input type="hidden" value="peligroExtincion" name="TipoDeConsulta" />
+
+            <!-- Botón crear -->
+            <div class="form-group">
+                <input type="submit" value="Actualizar" class="btn btn-primary" />
+            </div>
+
+        </form>
+
     </div>
 
     <!-- Por rango de peso -->
     <div id="tabs-4">
-        <!-- Nombre Científico -->
-        <div class="form-group">
-            <label asp-for="Especies.First().NombreCientifico" class="control-label"></label>
-            <input asp-for="Especies.First().NombreCientifico" class="form-control" />
-            <span asp-validation-for="Especies.First().NombreCientifico" class="text-danger"></span>
-        </div>
 
-        <!-- Nombre Vulgar -->
-        <div class="form-group">
-            <label asp-for="Especies.First().NombreCientifico" class="control-label"></label>
-            <input asp-for="Especies.First().NombreCientifico" class="form-control" />
-            <span asp-validation-for="Especies.First().NombreCientifico" class="text-danger"></span>
-        </div>
+        @if (Model.TipoDeConsulta == "nombreVulgar" && Model.Especies.Any())
+        {
+            @Html.Partial("_ListaEspecies", Model)
+        }
 
-        <!-- Botón crear -->
-        <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-primary" />
-        </div>
+        <form asp-action="Consultas">
+
+            <div class="form-group">
+                <label asp-for="Especie.RangoPeso" class="control-label"></label>
+                <input asp-for="Especie.RangoPeso" class="form-control" />
+                <span asp-validation-for="Especie.RangoPeso" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" value="rangoPeso" name="TipoDeConsulta" />
+
+            <input type="submit" value="Buscar" class="btn btn-primary" />
+
+        </form>   
+
     </div>
 
     <!-- Por ecosistema -->
     <div id="tabs-5">
-        Content for Tab 5 goes here.<br />
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-        sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+
+        <form asp-action="Consultas">
+
+            <select name="IdPorEcosistema">
+
+                @foreach (LogicaNegocio.Dominio.Ecosistema ecosistema in Model.Ecosistemas)
+                {
+                    if (Model.Especies != null
+                     && Model.IdPorEcosistema == ecosistema.Id)
+                    {
+                        <option selected value="@ecosistema.Id">@ecosistema.Nombre</option>
+                    }
+                    else
+                    {
+                        <option value="@ecosistema.Id">@ecosistema.Nombre</option>
+                    }
+                }
+            </select>
+
+            <input type="hidden" value="porEcosistema" name="TipoDeConsulta" />
+
+            <input type="submit" value="Buscar" class="btn btn-primary" />
+
+        </form>
+
+        @if (Model.TipoDeConsulta == "porEcosistema")
+        {
+            if (Model.EspeciesPorEcosistema != null && Model.EspeciesPorEcosistema.Any())
+            {
+                @Html.Partial("_ListaEspeciesEnEcosistema", Model)    
+            }           
+            else
+            {
+                <div>
+                    No se encontraron especies vinculadas al ecosistema indicado
+                </div>
+            }
+        }
+
     </div>
 
     <!-- No puede habitar -->
     <div id="tabs-6">
-        Content for Tab 6 goes here.<br />
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-        sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+
+        <form asp-action="Consultas">
+
+            <select name="IdNoPuedeHabitar">
+
+                @foreach (LogicaNegocio.Dominio.Especie especie in Model.Especies)
+                {
+                    if (Model.Especies != null
+                    && Model.IdNoPuedeHabitar == especie.Id)
+                    {
+                        <option selected value="@especie.Id">@especie.NombreCientifico (@especie.NombreVulgar)</option>
+                    }
+                    else
+                    {
+                        <option value="@especie.Id">@especie.NombreCientifico (@especie.NombreVulgar)</option>
+                    }
+                }
+            </select>
+
+            <input type="hidden" value="noPuedeHabitar" name="TipoDeConsulta" />
+
+            <input type="submit" value="Buscar" class="btn btn-primary" />
+
+        </form>
+
+        @if (Model.TipoDeConsulta == "noPuedeHabitar")
+        {
+            if (Model.EcosistemasEspecieNoPuedeHabitar.Any())
+            {
+                @Html.Partial("_ListaNoPuedeHabitar")
+            }
+            else
+            {
+                <div>
+                    No se encontraron ecosistemas incompatibles para la especie
+                </div>
+            }
+
+        }
+
     </div>
 
 </div>
@@ -212,99 +217,40 @@
 <link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
+
     $(function () {
+        
         $("#tabs").tabs();
-    });
-</script>
 
-@*         <form asp-action="Consultar">            
+        let TipoDeConsulta = "@Model.TipoDeConsulta"
 
-            <!-- Especies por nombre cientifico -->
-            <div class="form-group">                
-
-                <select name="IdNombresCientificoSeleccionado">
-
-                    @foreach (LogicaNegocio.Dominio.Especie especie in Model.Especies)
-                    {
-                        if (Model.Especies != null
-                         && Model.IdEspeciesSeleccionado == especie.Id
-                        )
-                        {
-                            <option selected value="@especie.Id">@especie.Nombre</option>
-                        }
-                        else
-                        {
-                            <option value="@especie.Id">@especie.Nombre</option>
-                        }
-                    }
-                </select>
-
-            </div>
-
-        </form> *@
-
-@* 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Especies.First().Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Especies.First().NombreCientifico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Especies.First().NombreVulgar)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Especies.First().Descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Especies.First().RangoPeso)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Especies.First().RangoLongitud)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Especies.First().ArchivoImagen)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Especies)
+        switch (TipoDeConsulta) 
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NombreCientifico)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NombreVulgar)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RangoPeso)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RangoLongitud)
-                </td>
-                <td>
-                    <img src="/@Model.RutaDirectorioImagenesEspecies/@item.ArchivoImagen" height="30">
-                </td>
-                <td>                    
-                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                    
-                </td>
-            </tr>
+            case "nombreCientifico":
+                $("#tabs").tabs("select", 1);
+                break;
+            case "peligroExtincion":
+                $("#tabs").tabs("select", 2);
+                break;
+            case "rangoPeso":
+                $("#tabs").tabs("select", 3);
+                break;
+            case "porEcosistema":
+                $("#tabs").tabs("select", 4);
+                break;
+            case "noPuedeHabitar":
+                $("#tabs").tabs("select", 5);
+                break;
+            default:
+                $("#tabs").tabs("select", 0);
         }
-    </tbody>
-</table>
- *@
+
+        $('#tabs').tabs({
+            select: function (event, ui) {
+                console.log(event);
+            }
+        })
+
+    });
+
+</script>

@@ -1,0 +1,80 @@
+﻿@model PresentacionMVC.Models.ConsultaEspecieViewModel
+
+@{
+    ViewData["Title"] = "Listar Ecosistemas";
+}
+
+<h1>Listar Ecosistemas</h1>
+
+
+@if (Model.Ecosistemas != null && Model.Ecosistemas.Count() > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EcosistemasEspecieNoPuedeHabitar.First().Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EcosistemasEspecieNoPuedeHabitar.First().Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EcosistemasEspecieNoPuedeHabitar.First().Area)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EcosistemasEspecieNoPuedeHabitar.First().DescripcionCaracteristicas)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EcosistemasEspecieNoPuedeHabitar.First().Longitud)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EcosistemasEspecieNoPuedeHabitar.First().Latitud)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EcosistemasEspecieNoPuedeHabitar.First().ArchivoImagen)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.EcosistemasEspecieNoPuedeHabitar)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Area)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DescripcionCaracteristicas)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Longitud)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Latitud)
+                    </td>
+                    <td>
+                        <img src="/@Model.RutaDirectorioImagenesEcosistemas/@item.ArchivoImagen" height="30">
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+else
+{
+    <div>
+        No se encontraron resultados
+    </div>
+}

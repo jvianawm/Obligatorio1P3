@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.CasosDeUso
 {
-    public class BuscarEspeciePorId: IBuscarEspeciePorId
+    public class CUEcosistemasEspecieNoPuedeHabitar : IEcosistemasEspecieNoPuedeHabitar
     {
-        public IRepositorioEspecie Repo {  get; set; }    
+        public IRepositorioEcosistema Repo { get; set; }
 
-        public BuscarEspeciePorId(IRepositorioEspecie repo)
+        public CUEcosistemasEspecieNoPuedeHabitar(IRepositorioEcosistema repo)
         {
             Repo = repo;
         }
 
-        public Especie Buscar(int id)
+        public IEnumerable<Ecosistema> Buscar(int id)
         {
-           return Repo.FindById(id);
+            return Repo.ObtenerEcosistemasEspecieNoPuedeHabitar(id);
         }
     }
 }

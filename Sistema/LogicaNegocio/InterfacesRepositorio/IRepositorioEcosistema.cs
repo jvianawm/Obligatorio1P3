@@ -12,6 +12,10 @@ namespace LogicaNegocio.InterfacesRepositorio
     {
         public IEnumerable<Ecosistema> FindByIds(List<int> ids);
 
+        public IEnumerable<Ecosistema> FindByEcosistemaId(int id);
+     
         public void AsignarEspecie(Ecosistema ecosistema);
+
+        public IEnumerable<Ecosistema> ObtenerEcosistemasEspecieNoPuedeHabitar(int idEspecie);
     }
 }

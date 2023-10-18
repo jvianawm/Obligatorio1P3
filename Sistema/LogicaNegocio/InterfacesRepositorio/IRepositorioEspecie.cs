@@ -11,5 +11,8 @@ namespace LogicaNegocio.InterfacesRepositorio
     public interface IRepositorioEspecie: IRepositorio<Especie>
     {
         public IEnumerable<Especie> FindByIds(List<int> ids);
+
+        public IEnumerable<Especie> FindEspeciesEnPeligro();
+        
     }
 }

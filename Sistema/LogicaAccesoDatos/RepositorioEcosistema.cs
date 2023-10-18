@@ -2,9 +2,11 @@
 using LogicaNegocio.Dominio;
 using LogicaNegocio.InterfacesRepositorio;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -154,12 +156,32 @@ namespace LogicaAccesoDatos
 
         public Ecosistema FindById(int id)
         {
-            return Context.Ecosistemas.Find(id);
+            return Context.Ecosistemas
+                    .Include(e => e.Amenazas)
+                    .Include(e => e.Especies)
+                    .Include(e => e.EspeciesPosibles)
+                    .Include(e => e.EstadoConservacion)
+                    .Where(e => e.Id == id)
+                    .First();
         }
 
         public IEnumerable<Ecosistema> FindByIds(List<int> ids)
         {
             return Context.Ecosistemas.Where(p => ids.Contains(p.Id));
+        }
+
+        // Dada una especie, todos los ecosistemas en los que no puede habitar.
+        public IEnumerable<Ecosistema> ObtenerEcosistemasEspecieNoPuedeHabitar(int idEspecie)
+        {
+            return Context.Ecosistemas
+                    .Where(a => Context.Especies
+                                .Where(i => i.Id == idEspecie)
+                                .Any(b => b.Amenazas
+                                            .Any(z => a.Amenazas
+                                                        .Any(x => x.Id == z.Id)
+                                             )
+                                 )
+                    );
         }
 
         public void Remove(Ecosistema obj)
@@ -193,6 +215,11 @@ namespace LogicaAccesoDatos
         public void Update(Ecosistema obj)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<Ecosistema> FindByEcosistemaId(int id)
+        {
+            return Context.Ecosistemas.Where(ec => ec.Especies.Any(es => es.Id == id));
         }
     }
 }

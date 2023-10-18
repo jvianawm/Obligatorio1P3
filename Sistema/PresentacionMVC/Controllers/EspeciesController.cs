@@ -24,9 +24,12 @@ namespace PresentacionMVC.Controllers
         public IRegistroEspecie CURegistroEspecie { get; set; }
         public IListarEstadoConservacion CUListarEstados { get; set; }
         public IListarEspecies CUListarEspecies { get; set; }
-
+        public IBuscarEspeciePorId CUBuscarEspeciePorId { get; set; }
+        public IBuscarEcosistemaPorId CUBuscarEcosistemaPorId { get; set; }
+        public IBuscarEcosistemasPorEspecieId CUBuscarEcosistemasPorEspecieId { get; set; }
+        public IListarEspeciesEnPeligro CUListarEspeciesEnPeligro { get; set; }
+        public IEcosistemasEspecieNoPuedeHabitar CUEcosistemasEspecieNoPuedeHabitar { get; set; }        
         public IWebHostEnvironment WebHostEnvironment { get; set; }
-
 
         public EspeciesController(
             IListarAmenazas cuListarAmenazas,
@@ -34,6 +37,11 @@ namespace PresentacionMVC.Controllers
             IRegistroEspecie cuRegistroEspecie,
             IListarEstadoConservacion cuListarEstados,
             IListarEspecies cuListarEspecies,
+            IBuscarEspeciePorId cuBuscarEspeciePorId,
+            IBuscarEcosistemaPorId cuBuscarEcosistemaPorId,
+            IBuscarEcosistemasPorEspecieId cuBuscarEcosistemaPorEspecieId,
+            IListarEspeciesEnPeligro cuListarEspeciesEnPeligro,
+            IEcosistemasEspecieNoPuedeHabitar cuEcosistemasEspecieNoPuedeHabitar,
             IWebHostEnvironment webHostEnvironment
         )
         {
@@ -42,6 +50,11 @@ namespace PresentacionMVC.Controllers
             CURegistroEspecie = cuRegistroEspecie;
             CUListarEstados = cuListarEstados;
             CUListarEspecies = cuListarEspecies;
+            CUBuscarEspeciePorId = cuBuscarEspeciePorId;
+            CUBuscarEcosistemaPorId = cuBuscarEcosistemaPorId;
+            CUBuscarEcosistemasPorEspecieId = cuBuscarEcosistemaPorEspecieId;
+            CUListarEspeciesEnPeligro = cuListarEspeciesEnPeligro;
+            CUEcosistemasEspecieNoPuedeHabitar = cuEcosistemasEspecieNoPuedeHabitar;
             WebHostEnvironment = webHostEnvironment;
         }
         
@@ -137,11 +150,46 @@ namespace PresentacionMVC.Controllers
         [UsuarioAutenticado]
         public ActionResult Consultas()
         {
-            ConsultaEspecieViewModel vm = new()
+            ConsultaEspecieViewModel vm = new(){};
+
+            vm.TipoDeConsulta    = "todasEspecies";
+            vm.Ecosistemas       = CUListarEcosistemas.Listar();
+            vm.Especies          = CUListarEspecies.Listar();
+            vm.EspeciesEnPeligro = CUListarEspeciesEnPeligro.Listar();
+
+            vm.RutaDirectorioImagenesEcosistemas = Path.Combine("img", "ecosistemas");
+            vm.RutaDirectorioImagenesEspecies    = Path.Combine("img", "especies");
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [UsuarioAutenticado]
+        public ActionResult Consultas(ConsultaEspecieViewModel vm)
+        {
+            vm.Especies = CUListarEspecies.Listar();
+            vm.Ecosistemas = CUListarEcosistemas.Listar();
+            vm.EspeciesEnPeligro = CUListarEspeciesEnPeligro.Listar();
+            
+            //if (vm.TipoDeConsulta == "todasEspecies") { }
+            //if (vm.TipoDeConsulta == "peligroExtincion") { }
+            //if (vm.TipoDeConsulta == "rangoPeso") { }
+                       
+            if (vm.TipoDeConsulta == "nombreCientifico")
             {
-                Ecosistemas = CUListarEcosistemas.Listar(),
-                Especies = CUListarEspecies.Listar(),
-            };
+                vm.Especie = CUBuscarEspeciePorId.Buscar(vm.IdNombreCientifico);
+                vm.Ecosistemas = CUBuscarEcosistemasPorEspecieId.Buscar(vm.Especie.Id);
+            }
+
+            if (vm.TipoDeConsulta == "porEcosistema") 
+            {
+                vm.EspeciesPorEcosistema = CUBuscarEcosistemaPorId.Buscar(vm.IdPorEcosistema).Especies;
+            }
+
+            if (vm.TipoDeConsulta == "noPuedeHabitar") 
+            { 
+                vm.EcosistemasEspecieNoPuedeHabitar = CUEcosistemasEspecieNoPuedeHabitar.Buscar(vm.IdNoPuedeHabitar);
+            }
 
             vm.RutaDirectorioImagenesEcosistemas = Path.Combine("img", "ecosistemas");
             vm.RutaDirectorioImagenesEspecies = Path.Combine("img", "especies");

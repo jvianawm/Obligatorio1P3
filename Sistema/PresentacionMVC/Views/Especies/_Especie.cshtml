@@ -1,0 +1,61 @@
+﻿@model PresentacionMVC.Models.ConsultaEspecieViewModel
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Especie.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especie.NombreCientifico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especie.NombreVulgar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especie.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especie.RangoPeso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especie.RangoLongitud)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especie.ArchivoImagen)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.Especie.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Especie.NombreCientifico)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Especie.NombreVulgar)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Especie.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Especie.RangoPeso)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Especie.RangoLongitud)
+            </td>
+            <td>
+                <img src="/@Model.RutaDirectorioImagenesEspecies/@Model.Especie.ArchivoImagen" height="30">
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id=Model.Especie.Id }) |
+
+            </td>
+        </tr>
+        
+    </tbody>
+</table>

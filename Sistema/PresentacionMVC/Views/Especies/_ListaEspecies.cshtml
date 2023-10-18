@@ -1,0 +1,62 @@
+﻿@model PresentacionMVC.Models.ConsultaEspecieViewModel
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Especies.First().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especies.First().NombreCientifico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especies.First().NombreVulgar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especies.First().Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especies.First().RangoPeso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especies.First().RangoLongitud)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especies.First().ArchivoImagen)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Especies)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreCientifico)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreVulgar)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RangoPeso)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RangoLongitud)
+                </td>
+                <td>
+                    <img src="/@Model.RutaDirectorioImagenesEspecies/@item.ArchivoImagen" height="30">
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
