@@ -1,61 +1,136 @@
-﻿@model PresentacionMVC.Models.DetalleEspecieViewModel
+﻿@model PresentacionMVC.Models.ConsultaEspecieViewModel
 
 @{
     ViewData["Title"] = "Detalles";
 }
 
 <h1>Detalles</h1>
-@* 
 <div>
     <h4>Especie</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
+            @Html.DisplayNameFor(model => model.Especie.Id)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
+            @Html.DisplayFor(model => model.Especie.Id)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NombreCientifico)
+            @Html.DisplayNameFor(model => model.Especie.NombreCientifico)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NombreCientifico)
+            @Html.DisplayFor(model => model.Especie.NombreCientifico.Value)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NombreVulgar)
+            @Html.DisplayNameFor(model => model.Especie.NombreVulgar)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NombreVulgar)
+            @Html.DisplayFor(model => model.Especie.NombreVulgar)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descripcion)
+            @Html.DisplayNameFor(model => model.Especie.Descripcion.Value)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descripcion)
+            @Html.DisplayFor(model => model.Especie.Descripcion)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RangoPeso)
+            @Html.DisplayNameFor(model => model.Especie.PesoMinimo)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RangoPeso)
+            @Html.DisplayFor(model => model.Especie.PesoMinimo)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RangoLongitud)
+            @Html.DisplayNameFor(model => model.Especie.LongitudMinima)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RangoLongitud)
+            @Html.DisplayFor(model => model.Especie.LongitudMaxima)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ArchivoImagen)
+            @Html.DisplayNameFor(model => model.Especie.ArchivoImagen)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ArchivoImagen)
+            <img src="/@Model.RutaDirectorioImagenesEspecies/@Model.Especie.Id@Model.Especie.ArchivoImagen" height="30">
         </dd>
     </dl>
 </div>
+
+
+<h1>Ecosistemas en donde habita</h1>
+
+@if (Model.Ecosistemas != null && Model.Ecosistemas.Count() > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ecosistemas.First().Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ecosistemas.First().Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ecosistemas.First().Area)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ecosistemas.First().DescripcionCaracteristicas)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ecosistemas.First().Longitud)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ecosistemas.First().Latitud)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ecosistemas.First().ArchivoImagen)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Ecosistemas)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Area)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DescripcionCaracteristicas)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Longitud)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Latitud)
+                    </td>
+                    <td>
+                        <img src="/@Model.RutaDirectorioImagenesEcosistemas/@item.Id@item.ArchivoImagen" height="30">
+                    </td>
+                    <td>
+                        @Html.ActionLink("Detalles", "Detalles", new { id=item.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+else
+{
+    <div class="sin-datos">
+        No se encontraron resultados
+    </div>
+}
+
+
+
+
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     <a asp-action="Index">Back to List</a>
 </div>
- *@

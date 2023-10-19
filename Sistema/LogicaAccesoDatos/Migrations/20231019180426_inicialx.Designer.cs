@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LogicaAccesoDatos.Migrations
 {
     [DbContext(typeof(PlataformaContext))]
-    [Migration("20231019033031_cambionombre")]
-    partial class cambionombre
+    [Migration("20231019180426_inicialx")]
+    partial class inicialx
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -144,10 +144,10 @@ namespace LogicaAccesoDatos.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Latitud")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(9,6)");
 
                     b.Property<decimal>("Longitud")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(9,6)");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -173,19 +173,14 @@ namespace LogicaAccesoDatos.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Descripcion")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
                     b.Property<int>("EstadoConservacionId")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("LongitudMaxima")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(8,2)");
 
                     b.Property<decimal?>("LongitudMinima")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(8,2)");
 
                     b.Property<string>("NombreVulgar")
                         .IsRequired()
@@ -193,10 +188,10 @@ namespace LogicaAccesoDatos.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<decimal>("PesoMaximo")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
 
                     b.Property<decimal>("PesoMinimo")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
 
                     b.HasKey("Id");
 
@@ -228,6 +223,37 @@ namespace LogicaAccesoDatos.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EstadoConservacion");
+                });
+
+            modelBuilder.Entity("LogicaNegocio.Dominio.Log", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("FechaHora")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdEntidad")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NombreUsuario")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TipoEntidad")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Valor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Log");
                 });
 
             modelBuilder.Entity("LogicaNegocio.Dominio.Pais", b =>
@@ -273,8 +299,8 @@ namespace LogicaAccesoDatos.Migrations
 
                     b.Property<string>("PasswordEncriptado")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.HasKey("Id");
 
@@ -402,6 +428,24 @@ namespace LogicaAccesoDatos.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.OwnsOne("LogicaNegocio.ValueObjects.DescripcionEspecie", "Descripcion", b1 =>
+                        {
+                            b1.Property<int>("EspecieId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Descripcion");
+
+                            b1.HasKey("EspecieId");
+
+                            b1.ToTable("Especies");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EspecieId");
+                        });
+
                     b.OwnsOne("LogicaNegocio.ValueObjects.NombreCientifico", "NombreCientifico", b1 =>
                         {
                             b1.Property<int>("EspecieId")
@@ -422,6 +466,9 @@ namespace LogicaAccesoDatos.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("EspecieId");
                         });
+
+                    b.Navigation("Descripcion")
+                        .IsRequired();
 
                     b.Navigation("EstadoConservacion");
 

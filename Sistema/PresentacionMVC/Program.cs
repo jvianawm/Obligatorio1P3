@@ -26,6 +26,7 @@ builder.Services.AddScoped<IRepositorioAmenaza, RepositorioAmenaza>();
 builder.Services.AddScoped<IRepositorioEspecie, RepositorioEspecie>();
 builder.Services.AddScoped<IRepositorioEstadoConservacion, RepositorioEstadoConservacion>();
 builder.Services.AddScoped<IRepositorioParametros, RepositorioParametros>();
+//builder.Services.AddScoped<IRepositorioLog, RepositorioLog>();
 
 // CASOS DE USO
 // Usuario
@@ -77,10 +78,10 @@ var opciones = b.Options;
 PlataformaContext ctx = new PlataformaContext(opciones);
 RepositorioParametros repo = new RepositorioParametros(ctx);
 
-//NombreCientifico.MinCharNom = int.Parse(repo.BuscarValorPorNombre("MinCharNom"));
-//NombreCientifico.MaxCharNom = int.Parse(repo.BuscarValorPorNombre("MaxCharNom"));
-//DescripcionEspecie.MinCharDesc = int.Parse(repo.BuscarValorPorNombre("MinCharDesc"));
-//DescripcionEspecie.MaxCharDesc = int.Parse(repo.BuscarValorPorNombre("MaxCharDesc"));
+NombreCientifico.MinCharNom = int.Parse(repo.BuscarValorPorNombre("MinCharNom"));
+NombreCientifico.MaxCharNom = int.Parse(repo.BuscarValorPorNombre("MaxCharNom"));
+DescripcionEspecie.MinCharDesc = int.Parse(repo.BuscarValorPorNombre("MinCharDesc"));
+DescripcionEspecie.MaxCharDesc = int.Parse(repo.BuscarValorPorNombre("MaxCharDesc"));
 
 
 

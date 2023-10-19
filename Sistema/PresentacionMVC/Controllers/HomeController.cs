@@ -10,35 +10,19 @@ namespace PresentacionMVC.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        //public IAltaAmenaza CUAltaAmenaza { get; set; }
-        //public IBajaAmenaza CUBajaAmenaza { get; set; }
-        //public IBuscarAmenazaPorId CUBuscarAmenazaPorId { get; set; }
-        //public IListarAmenaza CUListarAmenaza { get; set; }
-        //public IModificarAmenaza CUModificarAmenaza { get; set; }
-
         public HomeController(
             ILogger<HomeController> logger
-            //IAltaAmenaza cuAltaAmenaza, 
-            //IBajaAmenaza cuBajaAmenaza,
-            //IBuscarAmenazaPorId cuBuscarAmenazaPorId, 
-            //IListarAmenaza cuListarAmenaza,
-            //IModificarAmenaza cuModificarAmenaza
         )
         {
             _logger = logger;
-            //CUAltaAmenaza = cuAltaAmenaza;
-            //CUBajaAmenaza = cuBajaAmenaza;
-            //CUBuscarAmenazaPorId = cuBuscarAmenazaPorId;
-            //CUListarAmenaza = cuListarAmenaza;
-            //CUModificarAmenaza = cuModificarAmenaza;
         }
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Consultas", "Especies");
         }
 
-        public IActionResult Privacy()
+        public IActionResult Administrador()
         {
             return View();
         }

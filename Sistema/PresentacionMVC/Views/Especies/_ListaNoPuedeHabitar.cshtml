@@ -65,7 +65,7 @@
                         @Html.DisplayFor(modelItem => item.EstadoConservacion.Nombre)
                     </td>
                     <td>
-                        <img src="/@Model.RutaDirectorioImagenesEcosistemas/@item.ArchivoImagen" height="30">
+                        <img src="/@Model.RutaDirectorioImagenesEcosistemas/@item.Id@item.ArchivoImagen" height="30">
                     </td>
                     <td>
                         @Html.ActionLink("Detalles", "Detalles", new { id=item.Id })

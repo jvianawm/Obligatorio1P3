@@ -1,0 +1,56 @@
+﻿@model PresentacionMVC.Models.DetalleEcosistemaViewModel
+
+@{
+    ViewData["Title"] = "Detalles";
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>Ecosistema</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ecosistema.Id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ecosistema.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ecosistema.Nombre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ecosistema.Nombre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ecosistema.Area)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ecosistema.Area)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ecosistema.DescripcionCaracteristicas)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ecosistema.DescripcionCaracteristicas)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ecosistema.Longitud)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ecosistema.Longitud)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ecosistema.Latitud)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ecosistema.Latitud)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ecosistema.ArchivoImagen)
+        </dt>
+        <dd class = "col-sm-10">
+            <img src="/@Model.RutaDirectorioImagenesEcosistemas/@Model.Ecosistema.Id@Model.Ecosistema.ArchivoImagen" height="30">
+        </dd>
+    </dl>
+</div>

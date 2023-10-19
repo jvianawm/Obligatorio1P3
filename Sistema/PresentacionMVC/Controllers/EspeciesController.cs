@@ -13,7 +13,8 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Runtime.Intrinsics.X86;
 using System.Text;
 using Microsoft.AspNetCore.Hosting;
-
+using ExcepcionesPropias;
+using LogicaNegocio.ValueObjects;
 
 namespace PresentacionMVC.Controllers
 {
@@ -96,14 +97,28 @@ namespace PresentacionMVC.Controllers
 
         [HttpPost]
         [UsuarioAutenticado]
-        public ActionResult Registro(RegistroEspecieViewModel vm)
-        {
+        public ActionResult Registro(RegistroEspecieViewModel vm , string nombreCientifico, string descripcion )
+        {                       
             try
-            {
+            {                
+                // Fix: No funciona el ValueObject con el ViewModel (el binding no setea el valor)
+                vm.Especie.NombreCientifico = new NombreCientifico(nombreCientifico);
+                vm.Especie.Descripcion      = new DescripcionEspecie(descripcion);
+
                 vm.Especie.Amenazas            = CUListarAmenazas.FindByIds(vm.IdsAmenazasSeleccionadas.ToList()).ToList();
                 vm.Especie.Ecosistemas         = CUListarEcosistemas.FindByIds(vm.IdsEcosistemasSeleccionados.ToList()).ToList();
                 vm.Especie.EcosistemasPosibles = CUListarEcosistemas.FindByIds(vm.IdsEcosistemasPosiblesSeleccionados.ToList()).ToList();
-                vm.Especie.EstadoConservacion = CUListarEstados.ObtenerPorId(vm.IdEstado);
+                vm.Especie.EstadoConservacion  = CUListarEstados.ObtenerPorId(vm.IdEstado);
+
+                if (vm.ArchivoImagen == null)
+                {
+                    throw new EspecieException("No se agregó una imagen");
+                }
+
+                if (vm.IdEstado == 0)
+                {
+                    throw new EcosistemaException("Se debe indicar el estado");
+                }
 
                 FileInfo imagen = new FileInfo(vm.ArchivoImagen.FileName);
                 string extension = imagen.Extension;
@@ -113,13 +128,14 @@ namespace PresentacionMVC.Controllers
                     throw new Exception("El tipo de imagen debe ser png o jpg");
                 }
 
-                string nombreArchivo = vm.Especie.NombreCientifico + extension;
+                string nombreArchivo = "_001" + extension;
                 vm.Especie.ArchivoImagen = nombreArchivo;
 
                 CURegistroEspecie.Registrar(vm.Especie);
 
                 if (vm.ArchivoImagen != null && vm.ArchivoImagen.Length > 0)
                 {
+                    nombreArchivo = vm.Especie.Id + nombreArchivo;
                     string directorio = WebHostEnvironment.WebRootPath;
                     string rutaCompleta = Path.Combine(directorio, "img", "especies", nombreArchivo);
 
@@ -127,7 +143,7 @@ namespace PresentacionMVC.Controllers
                     vm.ArchivoImagen.CopyTo(fileStream);
                 }
 
-                TempData["MensajeExito"] = "Se creó la especie " + vm.Especie.NombreCientifico;
+                TempData["MensajeExito"] = "Se creó la especie " + vm.Especie.NombreCientifico.Value;
                 return RedirectToAction("Registro", "Especies");
             }
             catch (Exception ex)
@@ -140,7 +156,7 @@ namespace PresentacionMVC.Controllers
                 ViewBag.MensajeError = ex.Message;
                 return View(vm);
 
-            }            
+            }        
         }
 
         #endregion
@@ -334,8 +350,8 @@ namespace PresentacionMVC.Controllers
         {
             ConsultaEspecieViewModel vm = new()
             {
-                Ecosistemas = CUListarEcosistemas.Listar(),
-                Especies = CUListarEspecies.Listar(),
+                Ecosistemas = CUBuscarEcosistemasPorEspecieId.Buscar(id),
+                Especie = CUBuscarEspeciePorId.Buscar(id),
             };
 
             vm.RutaDirectorioImagenesEcosistemas = Path.Combine("img", "ecosistemas");

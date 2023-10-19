@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LogicaAccesoDatos.Migrations
 {
     /// <inheritdoc />
-    public partial class cambionombre : Migration
+    public partial class inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -76,7 +76,7 @@ namespace LogicaAccesoDatos.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Alias = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PasswordEncriptado = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
+                    PasswordEncriptado = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     FechaIngreso = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -94,8 +94,8 @@ namespace LogicaAccesoDatos.Migrations
                     Area = table.Column<int>(type: "int", nullable: false),
                     DescripcionCaracteristicas = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     EstadoConservacionId = table.Column<int>(type: "int", nullable: false),
-                    Longitud = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Latitud = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Longitud = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
+                    Latitud = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
                     ArchivoImagen = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -117,11 +117,11 @@ namespace LogicaAccesoDatos.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NombreCientifico = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     NombreVulgar = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Descripcion = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    PesoMinimo = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PesoMaximo = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    LongitudMinima = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    LongitudMaxima = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PesoMinimo = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
+                    PesoMaximo = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
+                    LongitudMinima = table.Column<decimal>(type: "decimal(8,2)", nullable: true),
+                    LongitudMaxima = table.Column<decimal>(type: "decimal(8,2)", nullable: true),
                     EstadoConservacionId = table.Column<int>(type: "int", nullable: false),
                     ArchivoImagen = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },

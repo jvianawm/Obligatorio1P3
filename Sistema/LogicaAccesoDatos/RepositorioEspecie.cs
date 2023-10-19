@@ -37,6 +37,8 @@ namespace LogicaAccesoDatos
 
                 Context.Especies.Add(especie);
                 Context.SaveChanges();
+
+                RepositorioLog.Registrar(especie.Id, "Especie:Add", Context);
             }
             else
             {

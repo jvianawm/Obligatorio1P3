@@ -113,13 +113,14 @@ namespace PresentacionMVC.Controllers
                     throw new Exception("El tipo de imagen debe ser png o jpg");
                 }
 
-                string nombreArchivo = vm.Ecosistema.Nombre + extension;
+                string nombreArchivo = "_001" + extension;
                 vm.Ecosistema.ArchivoImagen = nombreArchivo;
 
                 CURegistroEcosistema.Registrar(vm.Ecosistema);
 
                 if (vm.ArchivoImagen != null && vm.ArchivoImagen.Length > 0)
                 {
+                    nombreArchivo = vm.Ecosistema.Id + nombreArchivo;
                     string directorio = WebHostEnvironment.WebRootPath;
                     string rutaCompleta = Path.Combine(directorio, "img" , "ecosistemas", nombreArchivo);
 
@@ -157,6 +158,18 @@ namespace PresentacionMVC.Controllers
 
             vm.RutaDirectorioImagenes = Path.Combine("img", "ecosistemas");
 
+            return View(vm);
+        }
+
+        [HttpGet]
+        public ActionResult Detalles(int id)
+        {
+            var vm = new DetalleEcosistemaViewModel()
+            {
+                Ecosistema = CUBuscarEcosistemaPorId.Buscar(id),
+                RutaDirectorioImagenesEcosistemas = Path.Combine("img", "ecosistemas")
+            };
+            
             return View(vm);
         }
 

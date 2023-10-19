@@ -30,9 +30,6 @@ namespace LogicaNegocio.Dominio
             
         }
 
-
-
-
         public void Validar()
         {
             ValidarDatosVacios();

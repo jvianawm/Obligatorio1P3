@@ -12,6 +12,8 @@ namespace LogicaAccesoDatos
 {
     public class RepositorioUsuario : IRepositorioUsuario
     {
+        public static string? NombreUsuario { get; set; }
+
         public PlataformaContext Context { get; set; }
 
         public RepositorioUsuario(PlataformaContext context)
@@ -33,6 +35,8 @@ namespace LogicaAccesoDatos
                 throw new UsuarioException("No se encontró un usuario con las credenciales proporcionadas");
             }
 
+            NombreUsuario = usuario.Alias;
+
             return login;
         }
                 
@@ -44,7 +48,7 @@ namespace LogicaAccesoDatos
                 usuario.PasswordEncriptado = Usuario.EncriptarPassword(usuario.Password);
 
                 usuario.Validar();
-                usuario.ValidarFecha();
+                Usuario.ValidarPassword(usuario.Password);
 
                 bool yaExiste = Context.Usuario.Where(
                                    u => u.Alias.Trim().ToLower() == usuario.Alias.Trim().ToLower()
@@ -56,6 +60,8 @@ namespace LogicaAccesoDatos
 
                 Context.Usuario.Add(usuario);
                 Context.SaveChanges();
+
+                RepositorioLog.Registrar(usuario.Id, "Usuario:Add", Context);
             }
             else
             {
@@ -66,35 +72,21 @@ namespace LogicaAccesoDatos
         public IEnumerable<Usuario> FindAll()
         {
             throw new NotImplementedException();
-            //return Context.Usuario.ToList();
         }
 
         public Usuario FindById(int id)
         {
             throw new NotImplementedException();
-            //return Context.Usuario.Find(id);
         }
 
         public void Remove(Usuario obj)
         {
             throw new NotImplementedException();
-            /*
-            if (obj != null)
-            {
-                Context.Remove(obj);
-                Context.SaveChanges();
-            }
-            else
-            {
-                throw new InvalidOperationException("No se proporciono un usuario");
-            }
-            */
         }
 
         public void Update(Usuario obj)
         {
             throw new NotImplementedException();
-        }
-        
+        }        
     }
 }

@@ -10,6 +10,7 @@ using System.Reflection.Metadata;
 using System.Reflection.Emit;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using LogicaNegocio.Parametros;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace LogicaAccesoDatos
 {   
@@ -22,6 +23,8 @@ namespace LogicaAccesoDatos
         public DbSet<Pais> Pais { get; set; }            
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Parametro> Parametros { get; set; }
+
+        public DbSet<Log> Log { get; set; }
 
         public PlataformaContext(DbContextOptions<PlataformaContext> options) : base(options)
         {
@@ -78,8 +81,80 @@ namespace LogicaAccesoDatos
            
 
             base.OnModelCreating(modelBuilder);
-        } 
+        }
 
+        /*
+        public override int SaveChanges()
+        {
+            this.ChangeTracker.DetectChanges();
+            var added = this.ChangeTracker.Entries()
+                        .Where(t => t.State == EntityState.Added)
+                        .Select(t => t.Entity)
+                        .ToArray();            
+
+            var modified = this.ChangeTracker.Entries()
+                        .Where(t => t.State == EntityState.Modified)
+                        .Select(t => t.Entity)
+                        .ToArray();
+
+            foreach (var entity in added)
+            {
+                if (!(entity is Log))
+                {
+                    var log = new Log()
+                    {
+                        TipoEntidad = entity.GetType().Name,
+                        //IdEntidad = entity.ToString().
+                        FechaHora = DateTime.Now,
+                        NombreUsuario = RepositorioUsuario.NombreUsuario
+                    };
+
+
+
+                }
+            }
+
+            foreach (var entity in modified)
+            {
+                if (entity is ITrack)
+                {
+                    var track = entity as ITrack;
+                    track.ModifiedDate = DateTime.Now;
+                    track.ModifiedBy = UserId;
+                }
+            }
+
+
+
+
+
+
+            var modifiedEntities = ChangeTracker.Entries()
+                .Where(p => p.State == EntityState.Modified || p.State == EntityState.Added);
+
+            foreach (var entry in modifiedEntities)
+            {
+                // Aquí, puedes acceder a las propiedades de la entidad y registrar los cambios
+                Console.WriteLine($"Entidad: {entry.Entity.GetType().Name}");
+                Console.WriteLine("Propiedades Modificadas:");
+
+                foreach (var prop in entry.CurrentValues.Properties.GetColumnNames() .PropertyNames)
+                {
+                    var originalValue = entry.State == EntityState.Added ? null : entry.GetDatabaseValues().GetValue<object>(prop);
+                    var currentValue = entry.CurrentValues[prop];
+
+                    Console.WriteLine($"Propiedad: {prop}, Valor Original: {originalValue}, Valor Actual: {currentValue}");
+                }
+            }
+
+            return base.SaveChanges();
+
+
+
+
+            return base.SaveChanges();
+        }
+        */
     }
     
 }

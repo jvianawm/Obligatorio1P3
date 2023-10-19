@@ -27,6 +27,8 @@ namespace LogicaAccesoDatos
                 {
                     Contexto.Amenazas.Add(obj);
                     Contexto.SaveChanges();
+
+                    RepositorioLog.Registrar(obj.Id, "Amenaza:Add", Contexto);
                 }
                 catch(Exception ex) 
                 {
@@ -57,8 +59,12 @@ namespace LogicaAccesoDatos
                 obj.Validar();
                 try
                 {
+                    int id = obj.Id;
+
                     Contexto.Remove(obj);
                     Contexto.SaveChanges();
+
+                    RepositorioLog.Registrar(id, "Amenaza:Remove", Contexto);
                 }
                 catch (Exception ex)
 
@@ -78,6 +84,8 @@ namespace LogicaAccesoDatos
                 {
                     Contexto.Update(obj);
                     Contexto.SaveChanges();
+
+                    RepositorioLog.Registrar(obj.Id, "Usuario", Contexto);
                 }
                 catch (Exception ex)
 

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LogicaAccesoDatos.Migrations
 {
     [DbContext(typeof(PlataformaContext))]
-    [Migration("20231019035529_descripcionespecie")]
-    partial class descripcionespecie
+    [Migration("20231019123618_inicial")]
+    partial class inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -144,10 +144,10 @@ namespace LogicaAccesoDatos.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Latitud")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(9,6)");
 
                     b.Property<decimal>("Longitud")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(9,6)");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -177,10 +177,10 @@ namespace LogicaAccesoDatos.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal?>("LongitudMaxima")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(8,2)");
 
                     b.Property<decimal?>("LongitudMinima")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(8,2)");
 
                     b.Property<string>("NombreVulgar")
                         .IsRequired()
@@ -188,10 +188,10 @@ namespace LogicaAccesoDatos.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<decimal>("PesoMaximo")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
 
                     b.Property<decimal>("PesoMinimo")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
 
                     b.HasKey("Id");
 
@@ -268,8 +268,8 @@ namespace LogicaAccesoDatos.Migrations
 
                     b.Property<string>("PasswordEncriptado")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.HasKey("Id");
 

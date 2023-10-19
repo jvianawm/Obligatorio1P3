@@ -54,11 +54,11 @@
                         if (Model.Especies != null
                          && Model.IdEspecieSeleccionada == especie.Id)
                         {
-                            <option selected value="@especie.Id">@especie.NombreCientifico (@especie.NombreVulgar)</option>
+                            <option selected value="@especie.Id">@especie.NombreCientifico.Value (@especie.NombreVulgar)</option>
                         }
                         else
                         {
-                            <option value="@especie.Id">@especie.NombreCientifico (@especie.NombreVulgar)</option>
+                            <option value="@especie.Id">@especie.NombreCientifico.Value (@especie.NombreVulgar)</option>
                         }
                     }
                 </select>

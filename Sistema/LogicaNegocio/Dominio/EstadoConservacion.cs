@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LogicaNegocio.Dominio
 {
-    public class EstadoConservacion : IValidable // VALE LA PENA CREAR UNA CLASE DE ESTAS??
+    public class EstadoConservacion : IValidable
     {      
         public int Id { get; set; }
 
@@ -18,46 +18,36 @@ namespace LogicaNegocio.Dominio
 
         public string Descripcion { get; set; }
 
-        [Range(0,100, ErrorMessage = "No puede dejar vacio este item, y el ingreso debe estar comprendido entre 0 y 100")]
+        [Range(0,100, ErrorMessage = "El estado debe estar comprendido entre 0 y 100")]
         public int Estado { get; set; }
 
 
         public EstadoConservacion()
-        {
-            
+        {            
         }
 
         public void Validar()
         {
             ValidarDatosVacios();
+            ValidarEstadoDeConservacion();
         }
 
         public void ValidarDatosVacios()
         {
-
-            if (Id == default || string.IsNullOrEmpty(Nombre))
+            if (Id == default 
+             || string.IsNullOrEmpty(Nombre)
+             || string.IsNullOrEmpty(Descripcion)             
+            )
             {
                 throw new Exception("No pueden haber datos vacios");
             }
         }
 
-        public void EstadoDeConservacion()
+        public void ValidarEstadoDeConservacion()
         {
-
             if (Estado == default || Estado < 0 || Estado > 100)
             {
                 throw new Exception("No puede dejar vacio este item, y el ingreso debe estar comprendido entre 0 y 100");
-            }                
-            else if(Estado >= 60 && Estado <= 70) 
-            {
-                throw new Exception("El estado de conservacion es aceptable");
-            }
-            else if (Estado > 70 && Estado <= 100)
-            {
-                throw new Exception("El estado de conservacion es Optimo");
-            }
-            else {
-                throw new Exception("Mal estado de conservacion");
             }
         }
 

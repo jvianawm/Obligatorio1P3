@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Administrador";
+}
+
+<h1>Administrador</h1>
+
+<hr />
+
+<div class="container">
+    <h2>Usuario</h2>
+    <ul>
+        <li><a asp-controller="Usuario" asp-action="Registro">Registro</a></li>
+    </ul>
+</div>
+
+<div class="container">
+    <h2>Ecosistema</h2>
+    <ul>
+        <li><a asp-controller="Ecosistema" asp-action="Registro">Registro</a></li>
+        <li><a asp-controller="Ecosistema" asp-action="Listar">Listado</a></li>
+        <li><a asp-controller="Ecosistema" asp-action="AsignarEspecie">Asignar Especie</a></li>
+        <li><a asp-controller="Ecosistema" asp-action="Consultas">Consultas</a></li>
+
+    </ul>
+</div>
+
+<div class="container">
+    <h2>Sistema</h2>
+    <ul>
+        <li><a asp-controller="Ecosistema" asp-action="ModificarMaximoNombreCientifico">Modificar máximo nombre científico</a></li>
+        <li><a asp-controller="Ecosistema" asp-action="ModificarMinimoNombreCientifico">Modificar mínimo nombre científico</a></li>
+        <li><a asp-controller="Ecosistema" asp-action="ModificarMinimoDescripcionEspecie">Modificar mínimo descripción especie</a></li>
+        <li><a asp-controller="Ecosistema" asp-action="ModificarMaximoDescripcionEspecie">Modificar máximo descripción especie</a></li>
+    </ul>
+</div>

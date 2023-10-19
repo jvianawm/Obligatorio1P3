@@ -38,6 +38,8 @@ namespace LogicaAccesoDatos
 
                 Context.Ecosistemas.Add(ecosistema);
                 Context.SaveChanges();
+
+                RepositorioLog.Registrar(ecosistema.Id, "Ecosistema:Add", Context);
             }
             else
             {
@@ -142,6 +144,8 @@ namespace LogicaAccesoDatos
 
                 Context.Ecosistemas.Update(ecosistemaEnbase);
                 Context.SaveChanges();
+
+                RepositorioLog.Registrar(ecosistemaEnbase.Id, "Ecosistema:AsignarEspecie", Context);
             }
             else
             {
@@ -212,6 +216,9 @@ namespace LogicaAccesoDatos
                 throw new EcosistemaException("No se proporcionó un ecosistema");
             }
         }
+
+
+
 
         public void Update(Ecosistema obj)
         {

@@ -25,26 +25,35 @@ namespace LogicaNegocio.Dominio
         [Required(ErrorMessage = "La contraseña es un dato requerido")]
         public string Password { get; set; }
 
-        [MaxLength(32)]
+        [MaxLength(64)]
         public string PasswordEncriptado { get; set; }
 
         public DateTime FechaIngreso { get; set; }
 
         public Usuario()
         {
-
         }
 
         public static string EncriptarPassword(string password)
         {
-            byte[] hashValue = MD5.HashData(Encoding.UTF8.GetBytes(password));
-            return Convert.ToHexString(hashValue);
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] inputBytes = Encoding.UTF8.GetBytes(password);
+                byte[] hashBytes = sha256.ComputeHash(inputBytes);
+
+                StringBuilder sb = new StringBuilder();
+                foreach (byte b in hashBytes)
+                {
+                    sb.Append(b.ToString("x2"));
+                }
+                return sb.ToString();
+            }
         }
 
         public void Validar()
         {
             ValidarDatosVacios(Alias, Password);
-            ValidarFecha();
+            ValidarFechaIngreso();
         }
 
         public  void ValidarDatosVacios( string alias, string password)
@@ -58,7 +67,7 @@ namespace LogicaNegocio.Dominio
             }
         }
 
-        public void ValidarFecha()
+        public void ValidarFechaIngreso()
         {
             if (FechaIngreso == default)
             {
@@ -66,5 +75,26 @@ namespace LogicaNegocio.Dominio
             }
         }
 
+        public static void ValidarPassword(string password)
+        {
+            // Verificar si tiene al menos 8 caracteres
+            if (password.Length < 8)
+            {
+                throw new UsuarioException("La contraseña debe tener por lo menos 8 caracteres");
+            }
+
+            // Verificar si contiene al menos una mayúscula, una minúscula y un dígito
+            if (!password.Any(char.IsUpper) || !password.Any(char.IsLower) || !password.Any(char.IsDigit))
+            {
+                throw new UsuarioException("La contraseña debe contener al menos una mayúscula, una minúscula y un dígito");
+            }
+
+            // Verificar si contiene al menos un carácter especial de los especificados
+            string caracteresEspeciales = @".,;:#!";
+            if (!password.Any(caracteresEspeciales.Contains))
+            {
+                throw new UsuarioException("La contraseña debe contener al menos un carácter especial de los especificados (.,;:#!)");
+            }
+        }
     }
 }
