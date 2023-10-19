@@ -31,6 +31,9 @@
                     @Html.DisplayNameFor(model => model.EcosistemasEspecieNoPuedeHabitar.First().Latitud)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.EcosistemasEspecieNoPuedeHabitar.First().EstadoConservacion.Estado)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.EcosistemasEspecieNoPuedeHabitar.First().ArchivoImagen)
                 </th>
                 <th></th>
@@ -57,6 +60,9 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Latitud)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EstadoConservacion.Nombre)
                     </td>
                     <td>
                         <img src="/@Model.RutaDirectorioImagenesEcosistemas/@item.ArchivoImagen" height="30">

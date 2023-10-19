@@ -18,7 +18,7 @@ namespace LogicaNegocio.Dominio
         public int Id { get; set; }
 
         [MinLength(6, ErrorMessage = "El alias debe contener minimo 6 caracteres")]
-        [Required(ErrorMessage ="El alias es un dato requerido")]
+        [Required(ErrorMessage ="El alias es un dato requerido")]        
         public string Alias { get; set; }
 
         [MinLength(8, ErrorMessage = "La contraseña debe tener minimo 8  caracteres")]

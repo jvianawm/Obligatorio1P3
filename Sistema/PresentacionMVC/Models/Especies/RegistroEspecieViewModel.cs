@@ -1,4 +1,5 @@
-﻿using LogicaNegocio.Dominio;
+﻿using ExcepcionesPropias;
+using LogicaNegocio.Dominio;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 

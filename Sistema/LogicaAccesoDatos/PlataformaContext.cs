@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Reflection.Metadata;
 using System.Reflection.Emit;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using LogicaNegocio.Parametros;
 
 namespace LogicaAccesoDatos
 {   
@@ -21,12 +22,19 @@ namespace LogicaAccesoDatos
         public DbSet<Pais> Pais { get; set; }            
         public DbSet<Usuario> Usuario { get; set; }
 
+        public DbSet<Parametro> Parametros { get; set; }
+
         public PlataformaContext(DbContextOptions<PlataformaContext> options) : base(options)
         {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            //modelBuilder.Entity<Autor>().OwnsOne(au => au.Nombre).HasIndex(nom => nom.Value).IsUnique();
+            modelBuilder.Entity<Especie>().OwnsOne(especie => especie.NombreCientifico);
+            modelBuilder.Entity<Especie>().OwnsOne(especie => especie.Descripcion);
+
             modelBuilder.Entity<Usuario>()
                         .HasIndex(u => u.Alias)
                         .IsUnique();

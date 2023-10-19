@@ -93,7 +93,17 @@ namespace PresentacionMVC.Controllers
                 && vm.IdsEspeciesSeleccionadas.Count() > 0)
                 {
                     vm.Ecosistema.Especies = CUListarEspecies.FindByIds(vm.IdsEspeciesSeleccionadas.ToList()).ToList();
-                }                    
+                }
+
+                if (vm.ArchivoImagen == null)
+                {
+                    throw new EcosistemaException("No se agregó una imagen");
+                }
+
+                if (vm.IdEstado == 0)
+                {
+                    throw new EcosistemaException("Se debe indicar el estado");
+                }
 
                 FileInfo imagen = new FileInfo(vm.ArchivoImagen.FileName);
                 string extension = imagen.Extension;
@@ -159,6 +169,7 @@ namespace PresentacionMVC.Controllers
         */
 
         [HttpGet]
+        [UsuarioAutenticado]
         public ActionResult Delete(int id) 
         {
             Ecosistema ecositema = CUBuscarEcosistemaPorId.Buscar(id);
@@ -172,6 +183,7 @@ namespace PresentacionMVC.Controllers
         }
 
         [HttpPost]
+        [UsuarioAutenticado]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Ecosistema ecosistema) 
         {        

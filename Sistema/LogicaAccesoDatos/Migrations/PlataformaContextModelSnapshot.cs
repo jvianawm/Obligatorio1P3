@@ -178,16 +178,11 @@ namespace LogicaAccesoDatos.Migrations
                     b.Property<int>("EstadoConservacionId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("LongitudMaxima")
+                    b.Property<decimal?>("LongitudMaxima")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("LongitudMinima")
+                    b.Property<decimal?>("LongitudMinima")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("NombreCientifico")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("NombreVulgar")
                         .IsRequired()
@@ -286,6 +281,30 @@ namespace LogicaAccesoDatos.Migrations
                     b.ToTable("Usuario");
                 });
 
+            modelBuilder.Entity("LogicaNegocio.Parametros.Parametro", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Valor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Nombre")
+                        .IsUnique();
+
+                    b.ToTable("Parametros");
+                });
+
             modelBuilder.Entity("AmenazaEcosistema", b =>
                 {
                     b.HasOne("LogicaNegocio.Dominio.Amenaza", null)
@@ -380,7 +399,31 @@ namespace LogicaAccesoDatos.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.OwnsOne("LogicaNegocio.ValueObjects.NombreCientifico", "NombreCientifico", b1 =>
+                        {
+                            b1.Property<int>("EspecieId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(450)")
+                                .HasColumnName("NombreCientifico");
+
+                            b1.HasKey("EspecieId");
+
+                            b1.HasIndex("Value")
+                                .IsUnique();
+
+                            b1.ToTable("Especies");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EspecieId");
+                        });
+
                     b.Navigation("EstadoConservacion");
+
+                    b.Navigation("NombreCientifico")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

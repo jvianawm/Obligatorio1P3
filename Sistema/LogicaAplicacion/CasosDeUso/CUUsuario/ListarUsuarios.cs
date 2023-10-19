@@ -1,6 +1,6 @@
 ﻿using LogicaAplicacion.InterfacesCU;
 using LogicaNegocio.Dominio;
-using LogicaNegocio.Interfaces_de_Repositorio;
+using LogicaNegocio.InterfacesRepositorio;
 using LogicaNegocio.InterfacesRepositorio;
 using System;
 using System.Collections.Generic;

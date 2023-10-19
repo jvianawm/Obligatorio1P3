@@ -102,7 +102,7 @@ namespace PresentacionMVC.Controllers
                 }
 
                 string nombreArchivo = vm.Especie.NombreCientifico + extension;
-                vm.Especie.ArchivoImagen = nombreArchivo + extension;
+                vm.Especie.ArchivoImagen = nombreArchivo;
 
                 CURegistroEspecie.Registrar(vm.Especie);
 
@@ -150,7 +150,7 @@ namespace PresentacionMVC.Controllers
         */
 
         [HttpGet]
-        [UsuarioAutenticado]
+        //[UsuarioAutenticado]
         public ActionResult Consultas()
         {
             ConsultaEspecieViewModel vm = new(){};
@@ -167,7 +167,7 @@ namespace PresentacionMVC.Controllers
         }
 
         [HttpPost]
-        [UsuarioAutenticado]
+        //[UsuarioAutenticado]
         public ActionResult Consultas(ConsultaEspecieViewModel vm)
         {
             vm.Especies = CUListarEspecies.Listar();
@@ -202,7 +202,7 @@ namespace PresentacionMVC.Controllers
         }
 
         [HttpGet]
-        [UsuarioAutenticado]
+        //[UsuarioAutenticado]
         public ActionResult Detalles(int id)
         {
             ConsultaEspecieViewModel vm = new()

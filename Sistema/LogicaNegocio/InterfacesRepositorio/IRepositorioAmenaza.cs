@@ -1,5 +1,4 @@
 ﻿using LogicaNegocio.Dominio;
-using LogicaNegocio.Interfaces_de_Repositorio;
 using System;
 using System.Collections.Generic;
 using System.Linq;

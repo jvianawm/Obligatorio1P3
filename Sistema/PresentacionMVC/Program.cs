@@ -4,6 +4,7 @@ using LogicaAplicacion.InterfacesCU;
 using LogicaNegocio.InterfacesRepositorio;
 using LogicaNegocio.Dominio;
 using Microsoft.EntityFrameworkCore;
+using LogicaNegocio.ValueObjects;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +59,21 @@ var config = confBuilder.Build();
 
 string strCon = config.GetConnectionString("MiConexion");
 builder.Services.AddDbContextPool<PlataformaContext>(options => options.UseSqlServer(strCon));
+
+
+
+
+DbContextOptionsBuilder<PlataformaContext> b = new DbContextOptionsBuilder<PlataformaContext>();
+b.UseSqlServer(strCon);
+var opciones = b.Options;
+PlataformaContext ctx = new PlataformaContext(opciones);
+RepositorioParametros repo = new RepositorioParametros(ctx);
+
+NombreCientifico.MinCharNom = int.Parse(repo.BuscarValorPorNombre("MinCharNom"));
+NombreCientifico.MaxCharNom = int.Parse(repo.BuscarValorPorNombre("MaxCharNom"));
+
+
+
 
 var app = builder.Build();
 

@@ -27,7 +27,7 @@ namespace LogicaAccesoDatos
                 especie.Validar();
 
                 bool yaExiste = Context.Especies.Where(
-                                   e => e.NombreCientifico.Trim().ToLower() == especie.NombreCientifico.Trim().ToLower()
+                                   e => e.NombreCientifico.Value.Trim().ToLower() == especie.NombreCientifico.Value.Trim().ToLower()
                                 ).Any();
 
                 if (yaExiste)
@@ -67,6 +67,7 @@ namespace LogicaAccesoDatos
         {
             return Context.Especies
                 .Include(ec => ec.Ecosistemas)
+                .Include(es => es.EstadoConservacion)
                 .Where(
                     es => es.EstadoConservacion.Estado < 60
                  || es.Amenazas.Count() > 3

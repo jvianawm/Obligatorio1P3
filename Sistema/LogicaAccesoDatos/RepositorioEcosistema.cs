@@ -127,8 +127,8 @@ namespace LogicaAccesoDatos
                 // Asimismo, se verificará que el estado de conservación del ecosistema no sea peor que el de la especie que se le está asociando.
                 var estadoEcosistemaPeorQueEspecie = Context.Ecosistemas
                         .Where(
-                            ec => ec.Id == ecosistema.EstadoConservacion.Estado  
-                               && ec.EstadoConservacion.Id > especie.EstadoConservacion.Estado
+                            ec => ec.Id == ecosistema.Id
+                               && ec.EstadoConservacion.Estado > especie.EstadoConservacion.Estado
                         ).Any();
 
                 if (estadoEcosistemaPeorQueEspecie)
@@ -174,6 +174,7 @@ namespace LogicaAccesoDatos
         public IEnumerable<Ecosistema> ObtenerEcosistemasEspecieNoPuedeHabitar(int idEspecie)
         {
             return Context.Ecosistemas
+                    .Include(es => es.EstadoConservacion)
                     .Where(a => Context.Especies
                                 .Where(i => i.Id == idEspecie)
                                 .Any(b => b.Amenazas
