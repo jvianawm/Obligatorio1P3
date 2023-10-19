@@ -4,6 +4,7 @@ using LogicaAccesoDatos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LogicaAccesoDatos.Migrations
 {
     [DbContext(typeof(PlataformaContext))]
-    partial class PlataformaContextModelSnapshot : ModelSnapshot
+    [Migration("20231019033031_cambionombre")]
+    partial class cambionombre
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,6 +172,11 @@ namespace LogicaAccesoDatos.Migrations
                     b.Property<string>("ArchivoImagen")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("EstadoConservacionId")
                         .HasColumnType("int");
@@ -394,24 +402,6 @@ namespace LogicaAccesoDatos.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("LogicaNegocio.ValueObjects.DescripcionEspecie", "Descripcion", b1 =>
-                        {
-                            b1.Property<int>("EspecieId")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("Value")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("Descripcion");
-
-                            b1.HasKey("EspecieId");
-
-                            b1.ToTable("Especies");
-
-                            b1.WithOwner()
-                                .HasForeignKey("EspecieId");
-                        });
-
                     b.OwnsOne("LogicaNegocio.ValueObjects.NombreCientifico", "NombreCientifico", b1 =>
                         {
                             b1.Property<int>("EspecieId")
@@ -432,9 +422,6 @@ namespace LogicaAccesoDatos.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("EspecieId");
                         });
-
-                    b.Navigation("Descripcion")
-                        .IsRequired();
 
                     b.Navigation("EstadoConservacion");
 

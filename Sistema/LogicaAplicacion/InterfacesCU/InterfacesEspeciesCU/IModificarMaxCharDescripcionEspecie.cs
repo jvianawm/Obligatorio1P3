@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.InterfacesCU
 {
-    public interface IModificarMinDescripcionEspecie
+    public interface IModificarMaxCharDescripcionEspecie
     {
         void Modificar(int valorNuevo);
     }

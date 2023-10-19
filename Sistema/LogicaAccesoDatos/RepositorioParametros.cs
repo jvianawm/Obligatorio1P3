@@ -34,7 +34,11 @@ namespace LogicaAccesoDatos
             return res;
         }
 
-
+        public void Update(Parametro obj)
+        {
+            Contexto.Parametros.Update(obj);
+            Contexto.SaveChanges();
+        }
 
 
         public void Add(Parametro obj)
@@ -53,11 +57,6 @@ namespace LogicaAccesoDatos
         }
 
         public void Remove(Parametro obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Parametro obj)
         {
             throw new NotImplementedException();
         }

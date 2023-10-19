@@ -25,6 +25,7 @@ builder.Services.AddScoped<IRepositorioPais, RepositorioPais>();
 builder.Services.AddScoped<IRepositorioAmenaza, RepositorioAmenaza>();
 builder.Services.AddScoped<IRepositorioEspecie, RepositorioEspecie>();
 builder.Services.AddScoped<IRepositorioEstadoConservacion, RepositorioEstadoConservacion>();
+builder.Services.AddScoped<IRepositorioParametros, RepositorioParametros>();
 
 // CASOS DE USO
 // Usuario
@@ -49,6 +50,13 @@ builder.Services.AddScoped<IRegistroEspecie, CURegistroEspecie>();
 builder.Services.AddScoped<IBuscarEspeciePorId, CUBuscarEspeciePorId>();
 builder.Services.AddScoped<IListarEspeciesEnPeligro, CUListarEspeciesEnPeligro>();
 builder.Services.AddScoped<IBuscarPorRangoPeso, CUBuscarPorRangoPeso>();
+
+builder.Services.AddScoped<IModificarMinCharNombreCientifico, CUModificarMinCharNombreCientifico>();
+builder.Services.AddScoped<IModificarMaxCharNombreCientifico, CUModificarMaxCharNombreCientifico>();
+
+builder.Services.AddScoped<IModificarMinCharDescripcionEspecie, CUModificarMinCharDescripcionEspecie>();
+builder.Services.AddScoped<IModificarMaxCharDescripcionEspecie, CUModificarMaxCharDescripcionEspecie>();
+
 // Estados de conservacion
 builder.Services.AddScoped<IListarEstadoConservacion, CUListarEstados>();
 
@@ -69,8 +77,10 @@ var opciones = b.Options;
 PlataformaContext ctx = new PlataformaContext(opciones);
 RepositorioParametros repo = new RepositorioParametros(ctx);
 
-NombreCientifico.MinCharNom = int.Parse(repo.BuscarValorPorNombre("MinCharNom"));
-NombreCientifico.MaxCharNom = int.Parse(repo.BuscarValorPorNombre("MaxCharNom"));
+//NombreCientifico.MinCharNom = int.Parse(repo.BuscarValorPorNombre("MinCharNom"));
+//NombreCientifico.MaxCharNom = int.Parse(repo.BuscarValorPorNombre("MaxCharNom"));
+//DescripcionEspecie.MinCharDesc = int.Parse(repo.BuscarValorPorNombre("MinCharDesc"));
+//DescripcionEspecie.MaxCharDesc = int.Parse(repo.BuscarValorPorNombre("MaxCharDesc"));
 
 
 

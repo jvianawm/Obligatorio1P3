@@ -29,7 +29,11 @@ namespace PresentacionMVC.Controllers
         public IBuscarEcosistemasPorEspecieId CUBuscarEcosistemasPorEspecieId { get; set; }
         public IListarEspeciesEnPeligro CUListarEspeciesEnPeligro { get; set; }
         public IEcosistemasEspecieNoPuedeHabitar CUEcosistemasEspecieNoPuedeHabitar { get; set; }
-        public IBuscarPorRangoPeso CUBuscarPorRangoPeso { get; set; }
+        public IBuscarPorRangoPeso CUBuscarPorRangoPeso { get; set; }        
+        public IModificarMaxCharNombreCientifico CUModificarMaxCharNomCientifico { get; set; }
+        public IModificarMinCharNombreCientifico CUModificarMinCharNomCientifico { get; set; }
+        public IModificarMaxCharDescripcionEspecie CUModificarMaxCharDescripcionEspecie { get; set; }
+        public IModificarMinCharDescripcionEspecie CUModificarMinCharDescripcionEspecie { get; set; }
         public IWebHostEnvironment WebHostEnvironment { get; set; }
 
         public EspeciesController(
@@ -44,6 +48,10 @@ namespace PresentacionMVC.Controllers
             IListarEspeciesEnPeligro cuListarEspeciesEnPeligro,
             IEcosistemasEspecieNoPuedeHabitar cuEcosistemasEspecieNoPuedeHabitar,
             IBuscarPorRangoPeso cuBuscarPorRangoPeso,
+            IModificarMaxCharNombreCientifico cuModificarMaxCharNomCientifico,
+            IModificarMinCharNombreCientifico cuModificarMinCharNomCientifico,
+            IModificarMaxCharDescripcionEspecie cuModificarMaxCharDescripcionEspecie,
+            IModificarMinCharDescripcionEspecie cuModificarMinCharDescripcionEspecie,            
             IWebHostEnvironment webHostEnvironment
         )
         {
@@ -58,6 +66,10 @@ namespace PresentacionMVC.Controllers
             CUListarEspeciesEnPeligro = cuListarEspeciesEnPeligro;
             CUEcosistemasEspecieNoPuedeHabitar = cuEcosistemasEspecieNoPuedeHabitar;
             CUBuscarPorRangoPeso = cuBuscarPorRangoPeso;
+            CUModificarMaxCharNomCientifico = cuModificarMaxCharNomCientifico;
+            CUModificarMinCharNomCientifico = cuModificarMinCharNomCientifico;
+            CUModificarMaxCharDescripcionEspecie = cuModificarMaxCharDescripcionEspecie;
+            CUModificarMinCharDescripcionEspecie = cuModificarMinCharDescripcionEspecie;
             WebHostEnvironment = webHostEnvironment;
         }
         
@@ -133,23 +145,138 @@ namespace PresentacionMVC.Controllers
 
         #endregion
 
-        #region 9) Consulta de especies.
-        /*
-            Se podrán filtrar las especies y visualizarlas.
-                - Se desplegarán todos sus datos, incluyendo su foto y 
-                - los datos de los ecosistemas que habita (El ecosistema también incluirá su foto.)
-                
-            Cuando no se incluyan filtros, se mostrarán todas las especies.
-
-            La búsqueda se podrá realizar por los siguientes criterios (restrictivos):
-                - Por nombre científico.
-                - Especies en peligro de extinción (las que su estado de conservación sea menor que 60, también las que sufran más de 3 amenazas o también si habitan un ecosistema que sufra más de 3 amenazas siempre que ese ecosistema tenga un grado de conservación menor que 60).
-                - Especies en un rango determinado de peso.
-                - Por ecosistema: las especies que habitan ese ecosistema(no las que pueden habitarlo, sino las que efectivamente lo habitan).
-                - Dada una especie, todos los ecosistemas en los que no puede habitar.
-        */
+        #region 6 ) Modificar los topes del largo de la descripción y del nombre.
+        /* Se permitirá modificar el largo de las descripciones y de los nombres, 
+           siempre que no se pierda información de los nombres o descripciones ya almacenados. 
+           Se modifican de a uno por vez.         
+         */
 
         [HttpGet]
+        [UsuarioAutenticado]
+        public ActionResult ModificarMaximoNombreCientifico()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [UsuarioAutenticado]
+        public ActionResult ModificarMaximoNombreCientifico(int valor)
+        {            
+            try
+            {
+                CUModificarMaxCharNomCientifico.Modificar(valor);
+
+                TempData["MensajeExito"] = "Se modificó el máximo del nombre científico ";
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.MensajeError = ex.Message;
+            }
+
+            return View(valor);
+        }
+
+        [HttpGet]
+        [UsuarioAutenticado]
+        public ActionResult ModificarMinimoNombreCientifico()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [UsuarioAutenticado]
+        public ActionResult ModificarMinimoNombreCientifico(int valor)
+        {
+            try
+            {
+                CUModificarMinCharNomCientifico.Modificar(valor);
+
+                TempData["MensajeExito"] = "Se modificó el mínimo del nombre científico ";
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.MensajeError = ex.Message;
+            }
+
+            return View(valor);
+        }
+
+
+        [HttpGet]
+        [UsuarioAutenticado]
+        public ActionResult ModificarMinimoDescripcionEspecie()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [UsuarioAutenticado]
+        public ActionResult ModificarMinimoDescripcionEspecie(int valor)
+        {
+            try
+            {
+                CUModificarMinCharDescripcionEspecie.Modificar(valor);
+
+                TempData["MensajeExito"] = "Se modificó el mínimo de la descripción de la especie ";
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.MensajeError = ex.Message;
+            }
+
+            return View(valor);
+        }
+
+        [HttpGet]
+        [UsuarioAutenticado]
+        public ActionResult ModificarMaximoDescripcionEspecie()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [UsuarioAutenticado]
+        public ActionResult ModificarMaximoDescripcionEspecie(int valor)
+        {
+            try
+            {
+                CUModificarMaxCharDescripcionEspecie.Modificar(valor);
+
+                TempData["MensajeExito"] = "Se modificó el mínimo de la descripción de la especie ";
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.MensajeError = ex.Message;
+            }
+
+            return View(valor);
+        }
+
+        
+
+        #endregion
+
+        #region 9) Consulta de especies.
+       /*
+           Se podrán filtrar las especies y visualizarlas.
+               - Se desplegarán todos sus datos, incluyendo su foto y 
+               - los datos de los ecosistemas que habita (El ecosistema también incluirá su foto.)
+
+           Cuando no se incluyan filtros, se mostrarán todas las especies.
+
+           La búsqueda se podrá realizar por los siguientes criterios (restrictivos):
+               - Por nombre científico.
+               - Especies en peligro de extinción (las que su estado de conservación sea menor que 60, también las que sufran más de 3 amenazas o también si habitan un ecosistema que sufra más de 3 amenazas siempre que ese ecosistema tenga un grado de conservación menor que 60).
+               - Especies en un rango determinado de peso.
+               - Por ecosistema: las especies que habitan ese ecosistema(no las que pueden habitarlo, sino las que efectivamente lo habitan).
+               - Dada una especie, todos los ecosistemas en los que no puede habitar.
+       */
+
+       [HttpGet]
         //[UsuarioAutenticado]
         public ActionResult Consultas()
         {

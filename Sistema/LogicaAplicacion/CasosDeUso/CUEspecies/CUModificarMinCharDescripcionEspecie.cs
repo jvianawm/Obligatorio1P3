@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogicaAplicacion.CasosUso
+namespace LogicaAplicacion.CasosDeUso
 {
-    internal class CUModificarMinCharDescripcionEspecie : IModificarMinDescripcionEspecie
+    public class CUModificarMinCharDescripcionEspecie : IModificarMinCharDescripcionEspecie
     {
         public  IRepositorioParametros Repo { get; set; }
 
@@ -20,8 +20,16 @@ namespace LogicaAplicacion.CasosUso
         }
         public void Modificar(int valorNuevo)
         {
-            Parametro par = Repo.BuscarParametroPorNombre("MinCharNom");
+            Parametro par = Repo.BuscarParametroPorNombre("MinCharDesc");
             par.Valor = valorNuevo.ToString();
+
+            var maximo = Repo.BuscarValorPorNombre("MaxCharDesc");
+
+            if(valorNuevo > Int32.Parse(maximo))
+            {
+                throw new Exception("El valor mínimo no puede superar al máximo");
+            }
+
             Repo.Update(par);   
 
             NombreCientifico.MinCharNom = valorNuevo;            

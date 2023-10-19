@@ -21,7 +21,6 @@ namespace LogicaAccesoDatos
         public DbSet<EstadoConservacion> EstadoConservacion { get; set; } // CONVIENE HACER DBSET DE ESTE ATRIBUTO?
         public DbSet<Pais> Pais { get; set; }            
         public DbSet<Usuario> Usuario { get; set; }
-
         public DbSet<Parametro> Parametros { get; set; }
 
         public PlataformaContext(DbContextOptions<PlataformaContext> options) : base(options)
